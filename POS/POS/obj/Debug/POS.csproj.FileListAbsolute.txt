@@ -1,0 +1,10 @@
+D:\GitHub\PZ_Proj_Sem6\POS\POS\bin\Debug\POS.exe.config
+D:\GitHub\PZ_Proj_Sem6\POS\POS\bin\Debug\POS.exe
+D:\GitHub\PZ_Proj_Sem6\POS\POS\bin\Debug\POS.pdb
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.csprojAssemblyReference.cache
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.Form1.resources
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.Properties.Resources.resources
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.csproj.GenerateResource.cache
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.csproj.CoreCompileInputs.cache
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.exe
+D:\GitHub\PZ_Proj_Sem6\POS\POS\obj\Debug\POS.pdb
