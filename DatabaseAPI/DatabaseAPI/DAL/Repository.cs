@@ -7,20 +7,50 @@ using System.Linq;
 using System.Threading.Tasks;
 using Npgsql;
 using DatabaseAPI.DatabaseModels;
+using System.Data.Common;
 
 namespace DatabaseAPI.DAL
 {
-    public class Repository
+    public abstract class Repository<T> : IDisposable, ITableRepository<T>
     {
-        public void TryGet()
+        private readonly DbConnection _connection;
+        private readonly QueryFactory _queryFactory;
+        private readonly string _tableName;
+        protected readonly string[] _columnNames;
+
+        public Repository(string connectionString, string tableName, string[] columnNames)
         {
-            var cs = "Host=localhost;Port=5432;Username=postgres;Password=mysecretpassword;Database=postgres";
-            var conn = new NpgsqlConnection(cs);
-            var compiler = new PostgresCompiler();
-            var qf = new QueryFactory(conn, compiler);
-            var test = qf.Query("orders").Get();
-            IEnumerable<Order> orders = qf.Query("orders").Get<Order>();
-            
+            _connection = new NpgsqlConnection(connectionString);
+            _queryFactory = new QueryFactory(_connection, new PostgresCompiler());
+            _tableName = tableName;
+            _columnNames = columnNames;
+        }
+
+        public void Dispose()
+        {
+            _queryFactory.Dispose();
+            _connection.Dispose();
+        }
+
+        public IEnumerable<T> Get() => _queryFactory.Query(_tableName).Get<T>();
+
+        protected Query Query() => _queryFactory.Query(_tableName);
+
+        public virtual T Get(object primaryKey) => Query().Where(_columnNames[0], primaryKey).First<T>();
+
+        public void Insert(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(T entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatabaseAPI.Helpers;
 
 namespace DatabaseAPI.DatabaseModels
 {
@@ -11,7 +12,7 @@ namespace DatabaseAPI.DatabaseModels
         PriceDrop,
         PercentagePriceDrop
     }
-    public class Discount
+    public class Discount : IDbModel
     {
         public Discount(Guid id, DiscountType type, double? setPrice, double? priceDropAmmount, double? priceDropPercent)
         {
@@ -27,5 +28,7 @@ namespace DatabaseAPI.DatabaseModels
         public double? SetPrice { get; }
         public double? PriceDropAmmount { get; }
         public double? PriceDropPercent { get; }
+
+        public object[] Data => new object[] { Id, EnumCaster.DiscountTypeToString(Type), SetPrice, PriceDropAmmount, PriceDropPercent };
     }
 }

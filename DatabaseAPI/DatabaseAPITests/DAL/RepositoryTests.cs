@@ -14,7 +14,11 @@ namespace DatabaseAPI.DAL.Tests
         [TestMethod()]
         public void TryGetTest()
         {
-            new Repository().TryGet();
+            var test = new {
+                Title = "Toyota Kata",
+                CreatedAt = new DateTime(2009, 8, 4),
+                Author = "Mike Rother"
+            };
         }
     }
 }
