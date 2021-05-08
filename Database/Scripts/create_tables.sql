@@ -2,7 +2,7 @@ CREATE TABLE cashiers
 (
     id        uuid,
     full_name TEXT  NOT NULL,
-    bilans    DOUBLE NOT NULL,
+    bilans    FLOAT8 NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE orders
     cashier_id    uuid,
     status        order_status NOT NULL,
     created_at    TIMESTAMP    NOT NULL,
-    price         DOUBLE        NOT NULL,
+    price         FLOAT8        NOT NULL,
     ticket_number INT          NOT NULL,
 
     PRIMARY KEY (id),
@@ -27,7 +27,7 @@ CREATE TABLE products
 (
     id     uuid,
     name   TEXT           NOT NULL,
-    price  DOUBLE          NOT NULL,
+    price  FLOAT8          NOT NULL,
     status product_status NOT NULL,
 
     PRIMARY KEY (id)
@@ -38,7 +38,7 @@ CREATE TABLE order_items
     order_id   uuid,
     product_id uuid,
     quantity   INT NOT NULL,
-    price      DOUBLE,
+    price      FLOAT8,
 
     PRIMARY KEY (order_id, product_id),
     FOREIGN KEY (order_id) REFERENCES orders (id),
@@ -51,9 +51,9 @@ CREATE TABLE discounts
 (
     id                 uuid,
     type               discount_type NOT NULL,
-    set_price          DOUBLE,
-    price_drop_amount  DOUBLE,
-    price_drop_percent DOUBLE,
+    set_price          FLOAT8,
+    price_drop_amount  FLOAT8,
+    price_drop_percent FLOAT8,
     PRIMARY KEY (id)
 );
 
