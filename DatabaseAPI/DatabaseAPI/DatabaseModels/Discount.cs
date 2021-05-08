@@ -13,7 +13,7 @@ namespace DatabaseAPI.DatabaseModels
     }
     public class Discount
     {
-        public Discount(Guid id, DiscountType type, float? setPrice, float? priceDropAmmount, float? priceDropPercent)
+        public Discount(Guid id, DiscountType type, double? setPrice, double? priceDropAmmount, double? priceDropPercent)
         {
             Id = id;
             Type = type;
@@ -24,8 +24,8 @@ namespace DatabaseAPI.DatabaseModels
 
         public Guid Id { get; }
         public DiscountType Type { get; }
-        public float? SetPrice { get; }
-        public float? PriceDropAmmount { get; }
-        public float? PriceDropPercent { get; }
+        public double? SetPrice { get; }
+        public double? PriceDropAmmount { get; }
+        public double? PriceDropPercent { get; }
     }
 }
