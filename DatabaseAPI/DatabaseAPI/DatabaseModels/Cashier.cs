@@ -7,7 +7,7 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class Cashier
     {
-        public Cashier(Guid id, string fullName, float bilans)
+        public Cashier(Guid id, string fullName, double bilans)
         {
             Id = id;
             FullName = fullName;
@@ -16,6 +16,6 @@ namespace DatabaseAPI.DatabaseModels
 
         public Guid Id { get; }
         public string FullName { get; }
-        public float Bilans { get; }
+        public double Bilans { get; }
     }
 }

@@ -13,7 +13,7 @@ namespace DatabaseAPI.DatabaseModels
     }
     public class Product
     {
-        public Product(Guid id, string name, float price, ProductStatus status)
+        public Product(Guid id, string name, double price, ProductStatus status)
         {
             Id = id;
             Name = name;
@@ -23,7 +23,7 @@ namespace DatabaseAPI.DatabaseModels
 
         public Guid Id { get; }
         public string Name { get; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public ProductStatus Status { get; set; }
     }
 }

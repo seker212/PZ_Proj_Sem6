@@ -7,7 +7,7 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class OrderItems
     {
-        public OrderItems(Guid orderId, Guid productId, int quantity, float price)
+        public OrderItems(Guid orderId, Guid productId, int quantity, double price)
         {
             OrderId = orderId;
             ProductId = productId;
@@ -18,6 +18,6 @@ namespace DatabaseAPI.DatabaseModels
         public Guid OrderId { get; }
         public Guid ProductId { get; }
         public int Quantity { get; }
-        public float Price { get; }
+        public double Price { get; }
     }
 }
