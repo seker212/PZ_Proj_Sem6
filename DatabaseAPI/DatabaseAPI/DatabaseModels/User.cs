@@ -10,7 +10,7 @@ namespace DatabaseAPI.DatabaseModels
         Admin,
         Manager
     }
-    public class User
+    public class User : IDbModel
     {
         public Guid Id { get; }
         public string Username { get; }

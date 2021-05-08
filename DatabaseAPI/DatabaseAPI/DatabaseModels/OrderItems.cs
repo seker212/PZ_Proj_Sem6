@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    public class OrderItems
+    public class OrderItems : IDbModel
     {
         public OrderItems(Guid orderId, Guid productId, int quantity, double price)
         {

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    public class DiscountSetItems
+    public class DiscountSetItem : IDbModel
     {
-        public DiscountSetItems(Guid discountId, Guid productId, int quantity)
+        public DiscountSetItem(Guid discountId, Guid productId, int quantity)
         {
             DiscountId = discountId;
             ProductId = productId;

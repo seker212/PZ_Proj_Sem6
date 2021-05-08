@@ -11,7 +11,7 @@ using System.Data.Common;
 
 namespace DatabaseAPI.DAL
 {
-    public abstract class Repository<T> : IDisposable, ITableRepository<T>
+    public abstract class Repository<T> : IDisposable, IRepository<T> where T : IDbModel
     {
         private readonly DbConnection _connection;
         private readonly QueryFactory _queryFactory;
@@ -32,25 +32,21 @@ namespace DatabaseAPI.DAL
             _connection.Dispose();
         }
 
+        protected virtual IDictionary<string, object> GenerateDataDictionary(T entity, int start)
+        {
+            var dict = new Dictionary<string, object>();
+            for (int i = start; i < _columnNames.Length; i++)
+            {
+                dict.Add(_columnNames[i], entity.Data[i]);
+            }
+            return dict;
+        }
+
         public IEnumerable<T> Get() => _queryFactory.Query(_tableName).Get<T>();
-
         protected Query Query() => _queryFactory.Query(_tableName);
-
         public virtual T Get(object primaryKey) => Query().Where(_columnNames[0], primaryKey).First<T>();
-
-        public void Insert(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(T entity)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual T Insert(T entity) => Query().Insert(GenerateDataDictionary(entity, 0)) == 1 ? entity : throw new Exception(); //TODO: Use more descriptive exception
+        public virtual T Update(T entity) => Query().Where(_columnNames[0], entity.Data[0]).Update(GenerateDataDictionary(entity, 1)) == 1 ? entity : throw new Exception(); //TODO: Use more descriptive exception
+        public virtual bool Delete(T entity) => Query().Where(_columnNames[0], entity.Data[0]).Delete() == 1 ? true : throw new Exception(); //TODO: Use more descriptive exception
     }
 }

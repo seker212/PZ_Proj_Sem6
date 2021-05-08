@@ -11,7 +11,7 @@ namespace DatabaseAPI.DatabaseModels
         Withdrawn,
         Paused
     }
-    public class Product
+    public class Product : IDbModel
     {
         public Product(Guid id, string name, double price, ProductStatus status)
         {

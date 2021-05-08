@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    interface IDbModel
+    public interface IDbModel
     {
         public object[] Data { get; }
     }

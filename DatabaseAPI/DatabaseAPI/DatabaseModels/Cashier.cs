@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    public class Cashier
+    public class Cashier : IDbModel
     {
         public Cashier(Guid id, string fullName, double bilans)
         {
