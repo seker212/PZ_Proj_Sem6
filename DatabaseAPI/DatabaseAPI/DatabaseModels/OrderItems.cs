@@ -19,5 +19,8 @@ namespace DatabaseAPI.DatabaseModels
         public Guid ProductId { get; }
         public int Quantity { get; }
         public double Price { get; }
+
+        public object[] Data => new object[] { OrderId, ProductId, Quantity, Price };
+        public static string[] ColumnNames => new string[] { "order_id", "product_id", "quantity", "price" };
     }
 }

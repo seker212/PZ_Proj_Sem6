@@ -8,5 +8,6 @@ namespace DatabaseAPI.DatabaseModels
     public interface IDbModel
     {
         public object[] Data { get; }
+        static public string[] ColumnNames { get; }
     }
 }
