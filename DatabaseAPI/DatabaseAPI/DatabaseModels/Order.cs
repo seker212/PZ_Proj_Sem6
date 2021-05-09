@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatabaseAPI.Helpers;
 
 namespace DatabaseAPI.DatabaseModels
 {
@@ -13,7 +14,7 @@ namespace DatabaseAPI.DatabaseModels
         Canceled
     }
 
-    public class Order
+    public class Order : IDbModel
     {
         public Order(Guid id, Guid cashierId, OrderStatus status, DateTime createdAt, double price, int ticketNumber)
         {
@@ -35,6 +36,8 @@ namespace DatabaseAPI.DatabaseModels
         public double Price { get; }
         public int TicketNumber { get; }
 
+        public object[] Data => new object[] { Id, CashierId, EnumCaster.OrderStatusToString(Status), CreatedAt, Price, TicketNumber };
+        public static string[] ColumnNames => new string[] { "id", "cashier_id", "status", "created_at", "price", "ticket_number" };
         private static OrderStatus? CastToOrderStatus(string status)
         {
             switch (status)

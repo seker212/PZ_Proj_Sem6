@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatabaseAPI.Helpers;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    public class Cashier
+    public class Cashier : IDbModel
     {
         public Cashier(Guid id, string fullName, double bilans)
         {
@@ -17,5 +18,7 @@ namespace DatabaseAPI.DatabaseModels
         public Guid Id { get; }
         public string FullName { get; }
         public double Bilans { get; }
+        public object[] Data => new object[] { Id, FullName, Bilans };
+        public static string[] ColumnNames => new string[] { "id", "full_name", "bilans" };
     }
 }

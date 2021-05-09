@@ -30,5 +30,6 @@ namespace DatabaseAPI.DatabaseModels
         public double? PriceDropPercent { get; }
 
         public object[] Data => new object[] { Id, EnumCaster.DiscountTypeToString(Type), SetPrice, PriceDropAmmount, PriceDropPercent };
+        public static string[] ColumnNames => new string[] { "id", "type", "set_price", "price_drop_amount", "price_drop_percent" };
     }
 }

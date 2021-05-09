@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatabaseAPI.Helpers;
 
 namespace DatabaseAPI.DatabaseModels
 {
@@ -11,7 +12,7 @@ namespace DatabaseAPI.DatabaseModels
         Withdrawn,
         Paused
     }
-    public class Product
+    public class Product : IDbModel
     {
         public Product(Guid id, string name, double price, ProductStatus status)
         {
@@ -25,5 +26,8 @@ namespace DatabaseAPI.DatabaseModels
         public string Name { get; }
         public double Price { get; set; }
         public ProductStatus Status { get; set; }
+
+        public object[] Data => new object[] { Id, Name, Price, EnumCaster.ProductStatusToString(Status) };
+        public static string[] ColumnNames => new string[] { "id", "name", "price", "status" };
     }
 }
