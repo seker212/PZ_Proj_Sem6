@@ -8,10 +8,10 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class OrderDiscount : IDbModel
     {
-        public OrderDiscount(Guid orderId, Guid discountId)
+        public OrderDiscount(Guid order_id, Guid discount_id)
         {
-            OrderId = orderId;
-            DiscountId = discountId;
+            OrderId = order_id;
+            DiscountId = discount_id;
         }
 
         public Guid OrderId { get; }

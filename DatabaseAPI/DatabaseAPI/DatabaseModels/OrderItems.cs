@@ -7,10 +7,10 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class OrderItems : IDbModel
     {
-        public OrderItems(Guid orderId, Guid productId, int quantity, double price)
+        public OrderItems(Guid order_id, Guid product_id, int quantity, double price)
         {
-            OrderId = orderId;
-            ProductId = productId;
+            OrderId = order_id;
+            ProductId = product_id;
             Quantity = quantity;
             Price = price;
         }

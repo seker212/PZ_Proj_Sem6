@@ -8,10 +8,10 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class DiscountSetItem : IDbModel
     {
-        public DiscountSetItem(Guid discountId, Guid productId, int quantity)
+        public DiscountSetItem(Guid discount_id, Guid product_id, int quantity)
         {
-            DiscountId = discountId;
-            ProductId = productId;
+            DiscountId = discount_id;
+            ProductId = product_id;
             Quantity = quantity;
         }
 

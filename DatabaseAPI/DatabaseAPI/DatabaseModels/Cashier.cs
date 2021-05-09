@@ -8,10 +8,10 @@ namespace DatabaseAPI.DatabaseModels
 {
     public class Cashier : IDbModel
     {
-        public Cashier(Guid id, string fullName, double bilans)
+        public Cashier(Guid id, string full_name, double bilans)
         {
             Id = id;
-            FullName = fullName;
+            FullName = full_name;
             Bilans = bilans;
         }
 

@@ -102,14 +102,14 @@ namespace DatabaseAPI.Helpers
         {
             switch (type)
             {
-                case "ItemsSet":
+                case "Items set":
                     return DiscountType.ItemsSet;
-                case "PriceDrop":
+                case "Price drop":
                     return DiscountType.PriceDrop;
-                case "PercentagePriceDrop":
+                case "Percentage price drop":
                     return DiscountType.PercentagePriceDrop;
                 default:
-                    throw new ArgumentException("Type should be one of ItemsSet, PriceDrop, PercentagePriceDrop");
+                    throw new ArgumentException("Type should be one of Items set, Price drop, Percentage price drop");
             }
         }
 
@@ -118,11 +118,11 @@ namespace DatabaseAPI.Helpers
             switch (type)
             {
                 case DiscountType.ItemsSet:
-                    return "ItemsSet";
+                    return "Items set";
                 case DiscountType.PriceDrop:
-                    return "PriceDrop";
+                    return "Price drop";
                 case DiscountType.PercentagePriceDrop:
-                    return "PercentagePriceDrop";
+                    return "Percentage price drop";
                 default:
                     throw new Exception();
             }

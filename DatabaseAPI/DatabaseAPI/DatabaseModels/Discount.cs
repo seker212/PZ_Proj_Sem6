@@ -24,6 +24,8 @@ namespace DatabaseAPI.DatabaseModels
             PriceDropPercent = priceDropPercent;
         }
 
+        public Discount(Guid id, string type, double? set_price, double? price_drop_amount, double? price_drop_percent) : this(id, EnumCaster.DiscountTypeFromString(type), set_price, price_drop_amount, price_drop_percent) { }
+
         public Guid Id { get; }
         public DiscountType Type { get; }
         public double? SetPrice { get; }
