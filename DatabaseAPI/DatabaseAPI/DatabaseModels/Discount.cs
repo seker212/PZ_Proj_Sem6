@@ -14,6 +14,7 @@ namespace DatabaseAPI.DatabaseModels
     }
     public class Discount : IDbModel
     {
+        private static readonly string[] _staticColumnNames = new string[] { "id", "type", "set_price", "price_drop_amount", "price_drop_percent" };
         public Discount(Guid id, DiscountType type, double? setPrice, double? priceDropAmmount, double? priceDropPercent)
         {
             Id = id;
@@ -30,6 +31,7 @@ namespace DatabaseAPI.DatabaseModels
         public double? PriceDropPercent { get; }
 
         public object[] Data => new object[] { Id, EnumCaster.DiscountTypeToString(Type), SetPrice, PriceDropAmmount, PriceDropPercent };
-        public static string[] ColumnNames => new string[] { "id", "type", "set_price", "price_drop_amount", "price_drop_percent" };
+
+        public static string[] ColumnNames => _staticColumnNames;
     }
 }

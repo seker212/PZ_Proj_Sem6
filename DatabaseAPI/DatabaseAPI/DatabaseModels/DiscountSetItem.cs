@@ -6,9 +6,9 @@ using DatabaseAPI.Helpers;
 
 namespace DatabaseAPI.DatabaseModels
 {
-    public class DiscountSetItems : IDbModel
+    public class DiscountSetItem : IDbModel
     {
-        public DiscountSetItems(Guid discountId, Guid productId, int quantity)
+        public DiscountSetItem(Guid discountId, Guid productId, int quantity)
         {
             DiscountId = discountId;
             ProductId = productId;
