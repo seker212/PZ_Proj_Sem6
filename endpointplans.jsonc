@@ -1,0 +1,55 @@
+//  POST /order
+{
+    "cashier_id": "GUID",
+    "price": 2.99,
+    "products":[
+        {
+            "id": "GUID",
+            "count": 1
+        }
+    ],
+    "discounts":[
+        {
+            "id": "GUID",
+            "count": 1
+        }
+    ]
+},
+
+// GET /orders/kitchen
+// GET /orders/service
+{
+    "id": "GUID",
+    "products":[
+        {
+            "id": "GUID",
+            "name": "string",
+            "count": 1
+        }
+    ]
+},
+
+// GET /discounts
+[
+    {
+        "id": "GUID",
+        "type": "string",
+        "set_price": 10.99,
+        "products":[
+            {
+                "id": "GUID",
+                "name": "string"
+                "count": 2,
+            }
+        ]
+    }
+],
+
+// GET /products
+[
+    {
+        "id": "GUID",
+        "name": "string",
+        "price": 2.99
+    }
+]
