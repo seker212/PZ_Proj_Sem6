@@ -6,6 +6,7 @@ namespace DatabaseAPI.Helpers
     {
         OrderStatus ToEnum(string status);
         string ToStr(OrderStatus status);
+        string ToQuery(OrderStatus status);
     }
 
     public interface IUserTypeCaster
@@ -17,11 +18,13 @@ namespace DatabaseAPI.Helpers
     {
         ProductStatus ToEnum(string status);
         string ToStr(ProductStatus status);
+        string ToQuery(ProductStatus status);
     }
 
     public interface IDiscountTypeCaster
     {
         DiscountType ToEnum(string type);
         string ToStr(DiscountType type);
+        string ToQuery(DiscountType status);
     }
 }

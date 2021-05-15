@@ -48,6 +48,8 @@ namespace DatabaseAPI.Helpers
                         throw new Exception();
                 }
             }
+
+            public string ToQuery(OrderStatus status) => $"status = '{ToStr(status)}'";
         }
 
         class UserTypeCaster : IUserTypeCaster
@@ -110,6 +112,8 @@ namespace DatabaseAPI.Helpers
                         throw new Exception();
                 }
             }
+
+            public string ToQuery(ProductStatus status) => $"status = '{ToStr(status)}'";
         }
 
         class DiscountTypeCaster : IDiscountTypeCaster
@@ -143,6 +147,8 @@ namespace DatabaseAPI.Helpers
                         throw new Exception();
                 }
             }
+
+            public string ToQuery(DiscountType status) => $"type = '{ToStr(status)}'";
         }
     }
 }

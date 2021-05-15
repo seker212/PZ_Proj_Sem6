@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DatabaseAPI.DatabaseModels;
 using DatabaseAPI.Helpers;
 using SqlKata.Execution;
+using SqlKata.Extensions;
 
 namespace DatabaseAPI.DAL
 {
@@ -14,13 +15,8 @@ namespace DatabaseAPI.DAL
         {
         }
 
-        public IEnumerable<Order> GetKitchenOrders() => Query().Where("status", EnumCaster.OrderStatus.ToStr(OrderStatus.Preparing)).Get<Order>();
-        public IEnumerable<Order> GetServiceOrders()
-        {
-            var t = Query().Where("status", EnumCaster.OrderStatus.ToStr(OrderStatus.Serving));
-            var HERE = t.Get();
-            return t.Get<Order>();
-        }
+        public IEnumerable<Order> GetKitchenOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Preparing)).Get<Order>();
+        public IEnumerable<Order> GetServiceOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Serving)).Get<Order>();
         public bool UpdateStatus(Guid id, OrderStatus newStatus) => Query().Where(_columnNames[0], id).Update(new { status = EnumCaster.OrderStatus.ToStr(newStatus) }) == 1;
     }
 }
