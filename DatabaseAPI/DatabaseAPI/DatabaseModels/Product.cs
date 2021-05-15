@@ -27,7 +27,7 @@ namespace DatabaseAPI.DatabaseModels
         public double Price { get; set; }
         public ProductStatus Status { get; set; }
 
-        public object[] Data => new object[] { Id, Name, Price, EnumCaster.ProductStatusToString(Status) };
+        public object[] Data => new object[] { Id, Name, Price, EnumCaster.ProductStatus.ToStr(Status) };
         public static string[] ColumnNames => new string[] { "id", "name", "price", "status" };
     }
 }

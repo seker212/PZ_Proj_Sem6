@@ -6,125 +6,142 @@ using DatabaseAPI.DatabaseModels;
 
 namespace DatabaseAPI.Helpers
 {
-    public class EnumCaster
+    public sealed class EnumCaster
     {
-        public static OrderStatus OrderStatusFromString(string status)
+        public static IOrderStatusCaster OrderStatus => new OrderStatusCaster();
+        public static IProductStatusCaster ProductStatus => new ProductStatusCaster();
+        public static IDiscountTypeCaster DiscountType => new DiscountTypeCaster();
+        public static IUserTypeCaster UserType => new UserTypeCaster();
+
+        class OrderStatusCaster : IOrderStatusCaster
         {
-            switch (status)
+            public OrderStatus ToEnum(string status)
             {
-                case "Preparing":
-                    return OrderStatus.Preparing;
-                case "Serving":
-                    return OrderStatus.Serving;
-                case "Finished":
-                    return OrderStatus.Finished;
-                case "Canceled":
-                    return OrderStatus.Canceled;
-                default:
-                    throw new ArgumentException("Status should be one of Preparing, Serving, Finished, Canceled");
+                switch (status)
+                {
+                    case "Preparing":
+                        return DatabaseModels.OrderStatus.Preparing;
+                    case "Serving":
+                        return DatabaseModels.OrderStatus.Serving;
+                    case "Finished":
+                        return DatabaseModels.OrderStatus.Finished;
+                    case "Canceled":
+                        return DatabaseModels.OrderStatus.Canceled;
+                    default:
+                        throw new ArgumentException("Status should be one of Preparing, Serving, Finished, Canceled");
+                }
+            }
+
+            public string ToStr(OrderStatus status)
+            {
+                switch (status)
+                {
+                    case DatabaseModels.OrderStatus.Preparing:
+                        return "Preparing";
+                    case DatabaseModels.OrderStatus.Serving:
+                        return "Serving";
+                    case DatabaseModels.OrderStatus.Finished:
+                        return "Finished";
+                    case DatabaseModels.OrderStatus.Canceled:
+                        return "Canceled";
+                    default:
+                        throw new Exception();
+                }
             }
         }
 
-        public static string OrderStatusToString(OrderStatus status)
+        class UserTypeCaster : IUserTypeCaster
         {
-            switch (status)
+            public UserType ToEnum(string type)
             {
-                case OrderStatus.Preparing:
-                    return "Preparing";
-                case OrderStatus.Serving:
-                    return "Serving";
-                case OrderStatus.Finished:
-                    return "Finished";
-                case OrderStatus.Canceled:
-                    return "Canceled";
-                default:
-                    throw new Exception();
+                switch (type)
+                {
+                    case "Admin":
+                        return DatabaseModels.UserType.Admin;
+                    case "Manager":
+                        return DatabaseModels.UserType.Manager;
+                    default:
+                        throw new ArgumentException("Type should be Admin or Manager");
+                }
+            }
+
+            public string ToStr(UserType type)
+            {
+                switch (type)
+                {
+                    case DatabaseModels.UserType.Admin:
+                        return "Admin";
+                    case DatabaseModels.UserType.Manager:
+                        return "Manager";
+                    default:
+                        throw new Exception();
+                }
             }
         }
 
-        public static UserType UserTypeFromString(string type)
+        class ProductStatusCaster : IProductStatusCaster
         {
-            switch (type)
+            public ProductStatus ToEnum(string status)
             {
-                case "Admin":
-                    return UserType.Admin;
-                case "Manager":
-                    return UserType.Manager;
-                default:
-                    throw new ArgumentException("Type should be Admin or Manager");
+                switch (status)
+                {
+                    case "Available":
+                        return DatabaseModels.ProductStatus.Available;
+                    case "Withdrawn":
+                        return DatabaseModels.ProductStatus.Withdrawn;
+                    case "Paused":
+                        return DatabaseModels.ProductStatus.Paused;
+                    default:
+                        throw new ArgumentException("Status should be one of Available, Withdrawn, Paused");
+                }
+            }
+
+            public string ToStr(ProductStatus status)
+            {
+                switch (status)
+                {
+                    case DatabaseModels.ProductStatus.Available:
+                        return "Available";
+                    case DatabaseModels.ProductStatus.Withdrawn:
+                        return "Withdrawn";
+                    case DatabaseModels.ProductStatus.Paused:
+                        return "Paused";
+                    default:
+                        throw new Exception();
+                }
             }
         }
 
-        public static string UserTypeToString(UserType type)
+        class DiscountTypeCaster : IDiscountTypeCaster
         {
-            switch (type)
+            public DiscountType ToEnum(string type)
             {
-                case UserType.Admin:
-                    return "Admin";
-                case UserType.Manager:
-                    return "Manager";
-                default:
-                    throw new Exception();
+                switch (type)
+                {
+                    case "Items set":
+                        return DatabaseModels.DiscountType.ItemsSet;
+                    case "Price drop":
+                        return DatabaseModels.DiscountType.PriceDrop;
+                    case "Percentage price drop":
+                        return DatabaseModels.DiscountType.PercentagePriceDrop;
+                    default:
+                        throw new ArgumentException("Type should be one of Items set, Price drop, Percentage price drop");
+                }
             }
-        }
 
-        public static ProductStatus ProductStatusFromString(string status)
-        {
-            switch (status)
+            public string ToStr(DiscountType type)
             {
-                case "Available":
-                    return ProductStatus.Available;
-                case "Withdrawn":
-                    return ProductStatus.Withdrawn;
-                case "Paused":
-                    return ProductStatus.Paused;
-                default:
-                    throw new ArgumentException("Status should be one of Available, Withdrawn, Paused");
-            }
-        }
-
-        public static string ProductStatusToString(ProductStatus status)
-        {
-            switch (status)
-            {
-                case ProductStatus.Available:
-                    return "Available";
-                case ProductStatus.Withdrawn:
-                    return "Withdrawn";
-                case ProductStatus.Paused:
-                    return "Paused";
-                default:
-                    throw new Exception();
-            }
-        }
-
-        public static DiscountType DiscountTypeFromString(string type)
-        {
-            switch (type)
-            {
-                case "Items set":
-                    return DiscountType.ItemsSet;
-                case "Price drop":
-                    return DiscountType.PriceDrop;
-                case "Percentage price drop":
-                    return DiscountType.PercentagePriceDrop;
-                default:
-                    throw new ArgumentException("Type should be one of Items set, Price drop, Percentage price drop");
-            }
-        }
-
-        public static string DiscountTypeToString(DiscountType type)
-        {
-            switch (type)
-            {
-                case DiscountType.ItemsSet:
-                    return "Items set";
-                case DiscountType.PriceDrop:
-                    return "Price drop";
-                case DiscountType.PercentagePriceDrop:
-                    return "Percentage price drop";
-                default:
-                    throw new Exception();
+                switch (type)
+                {
+                    case DatabaseModels.DiscountType.ItemsSet:
+                        return "Items set";
+                    case DatabaseModels.DiscountType.PriceDrop:
+                        return "Price drop";
+                    case DatabaseModels.DiscountType.PercentagePriceDrop:
+                        return "Percentage price drop";
+                    default:
+                        throw new Exception();
+                }
             }
         }
     }

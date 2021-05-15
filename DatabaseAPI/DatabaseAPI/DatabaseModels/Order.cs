@@ -28,7 +28,7 @@ namespace DatabaseAPI.DatabaseModels
         }
 
         public Order(Guid id, Guid cashier_id, string status, DateTime created_at, double price, int ticket_number) : 
-            this(id, cashier_id, EnumCaster.OrderStatusFromString(status), created_at, price, ticket_number) { }
+            this(id, cashier_id, EnumCaster.OrderStatus.ToEnum(status), created_at, price, ticket_number) { }
 
         public Guid Id { get; }
         public Guid CashierId { get; }
@@ -37,7 +37,7 @@ namespace DatabaseAPI.DatabaseModels
         public double Price { get; }
         public int TicketNumber { get; }
 
-        public object[] Data => new object[] { Id, CashierId, EnumCaster.OrderStatusToString(Status), CreatedAt, Price, TicketNumber };
+        public object[] Data => new object[] { Id, CashierId, EnumCaster.OrderStatus.ToStr(Status), CreatedAt, Price, TicketNumber };
         public static string[] ColumnNames => _staticColumnNames;
     }
 }

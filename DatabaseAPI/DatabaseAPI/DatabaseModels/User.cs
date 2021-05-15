@@ -19,7 +19,7 @@ namespace DatabaseAPI.DatabaseModels
         public string PasswordHash { get; set; }
         public UserType Type { get; set; }
 
-        public object[] Data => new object[] { Id, Username, PasswordHash, EnumCaster.UserTypeToString(Type) };
+        public object[] Data => new object[] { Id, Username, PasswordHash, EnumCaster.UserType.ToStr(Type) };
 
         public static string[] ColumnNames => _staticColumnNames;
     }
