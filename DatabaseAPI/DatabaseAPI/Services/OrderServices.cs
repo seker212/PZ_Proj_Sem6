@@ -6,10 +6,17 @@ using DatabaseAPI.DAL;
 
 namespace DatabaseAPI.Services
 {
-    public class OrderServices
+    public class OrderServices : IOrderServices
     {
-        private OrderRepository _orderRepository;
-        private ProductRepository _productRepository;
+        private IOrderRepository _orderRepository;
+        private IProductRepository _productRepository;
+
+        public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository)
+        {
+            _orderRepository = orderRepository;
+            _productRepository = productRepository;
+        }
+
         public Task<bool> UpdateStatus(Guid key, DatabaseModels.OrderStatus newStatus)
         {
             if (key == Guid.Empty)
@@ -22,7 +29,8 @@ namespace DatabaseAPI.Services
 
         public Task<IEnumerable<ApiModels.OrderProducts>> GetKitchenOrders()
         {
-            return Task.Run(() => { 
+            return Task.Run(() =>
+            {
                 var orders = _orderRepository.GetKitchenOrders();
                 var result = new List<ApiModels.OrderProducts>();
                 foreach (var order in orders)
@@ -40,7 +48,8 @@ namespace DatabaseAPI.Services
         }
         public Task<IEnumerable<ApiModels.OrderProducts>> GetServiceOrders()
         {
-            return Task.Run(() => {
+            return Task.Run(() =>
+            {
                 var orders = _orderRepository.GetServiceOrders();
                 var result = new List<ApiModels.OrderProducts>();
                 foreach (var order in orders)

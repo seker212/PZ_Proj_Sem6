@@ -7,12 +7,13 @@ using SqlKata.Execution;
 
 namespace DatabaseAPI.DAL
 {
-    public class ProductRepository : ObjectRepository<Product>
+    public class ProductRepository : ObjectRepository<Product>, IProductRepository
     {
         public ProductRepository(string connectionString) : base(connectionString, "products", Product.ColumnNames)
         {
         }
 
         public IEnumerable<(Guid id, string name, int quantity)> GetOrderProducts(Order order) => Query().Select("products.id", "products.name", "order_items.quantity").Join("order_items", "product_id", "id").Where("order_id", order.Id).Get<(Guid id, string name, int quantity)>();
+        public IEnumerable<Product> GetAvailableProducts() => Query().Where("status", "Available").Get<Product>();
     }
 }

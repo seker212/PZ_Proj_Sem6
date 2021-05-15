@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DatabaseAPI.Services;
+using DatabaseAPI.DAL;
+
 
 namespace DatabaseAPI
 {
@@ -23,6 +26,8 @@ namespace DatabaseAPI
 
         public IConfiguration Configuration { get; }
 
+        private const string ConnectionString = "Host=localhost;Username=postgres;Password=mysecretpassword;Database=postgres";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -32,6 +37,9 @@ namespace DatabaseAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseAPI", Version = "v1" });
             });
+            services.AddScoped<IOrderServices, OrderServices>();
+            services.AddScoped<IOrderRepository>(x => new OrderRepository(ConnectionString));
+            services.AddScoped<IProductRepository>(x => new ProductRepository(ConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatabaseAPI.Helpers;
+using NpgsqlTypes;
+using Npgsql;
 
 namespace DatabaseAPI.DatabaseModels
 {
     public enum OrderStatus
     {
+        [PgName("Preparing")]
         Preparing,
+        [PgName("Serving")]
         Serving,
+        [PgName("Finished")]
         Finished,
+        [PgName("Canceled")]
         Canceled
     }
 

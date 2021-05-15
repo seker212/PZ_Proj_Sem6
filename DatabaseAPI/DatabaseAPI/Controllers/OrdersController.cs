@@ -13,7 +13,12 @@ namespace DatabaseAPI.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private OrderServices _orderServices;
+        private IOrderServices _orderServices;
+
+        public OrdersController(IOrderServices orderServices)
+        {
+            _orderServices = orderServices;
+        }
 
         [HttpGet("/kitchen")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OrderProducts>))]

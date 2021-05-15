@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Npgsql;
 using DatabaseAPI.DatabaseModels;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace DatabaseAPI.DAL
 {
@@ -24,6 +25,8 @@ namespace DatabaseAPI.DAL
             _queryFactory = new QueryFactory(_connection, new PostgresCompiler());
             _tableName = tableName;
             _columnNames = columnNames;
+
+            _queryFactory.Logger = compiled => { Debug.WriteLine(compiled.ToString()); };
         }
 
         public void Dispose()

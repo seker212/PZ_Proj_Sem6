@@ -1,12 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DatabaseAPI.DAL;
-using DatabaseAPI.DatabaseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DatabaseAPI.DatabaseModels;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Npgsql;
+using System;
 
 namespace DatabaseAPI.DAL.Tests
 {
@@ -61,6 +57,50 @@ namespace DatabaseAPI.DAL.Tests
         public void TryGetCashiersTest()
         {
             new ObjectRepository<Cashier>(_connectionString, "cashiers", Cashier.ColumnNames).Get().Should().HaveCount(2);
+        }
+
+        [TestMethod()]
+        public void TryGetOrdersTestServices()
+        {
+            new OrderRepository(_connectionString).GetServiceOrders().Should().HaveCount(1);
+        }
+
+        [TestMethod()]
+        public void TryGetOrdersTestKitchen()
+        {
+            new OrderRepository(_connectionString).GetKitchenOrders().Should().HaveCount(1);
+        }
+
+        [TestMethod()]
+        public void PlsKillMe()
+        {
+            using var con = new NpgsqlConnection(_connectionString);
+            con.Open();
+
+            var cmd=con.CreateCommand();
+            cmd.CommandText = "SELECT * FROM \"orders\" WHERE \"status\" = 'Serving'";
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                var a = reader.GetGuid(0);
+                var b = reader.GetGuid(1);
+                var c = reader.GetString(2);
+                var d = reader.GetDateTime(3);
+                var e = reader.GetDouble(4);
+                var f = reader.GetInt32(5);
+            }
+        }
+
+        [TestMethod()]
+        public void TryGetProdTestsafsdgdszfhgiohnegrwfjkml()
+        {
+            var s = new ProductRepository(_connectionString).GetOrderProducts(new Order(new Guid("00000000-0000-0000-0000-000000000009"), Guid.NewGuid(), OrderStatus.Canceled, DateTime.Now, 3.4, 3));
+        }
+
+        [TestMethod()]
+        public void TryGetProdTestsafsdgdszfhgiohngrwfjkml()
+        {
+            var s = new ProductRepository(_connectionString).GetAvailableProducts();
         }
     }
 }
