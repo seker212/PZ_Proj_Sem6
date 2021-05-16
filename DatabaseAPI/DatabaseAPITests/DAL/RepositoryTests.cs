@@ -102,5 +102,15 @@ namespace DatabaseAPI.DAL.Tests
         {
             var s = new ProductRepository(_connectionString).GetAvailableProducts();
         }
+
+        [TestMethod()]
+        public void TryGetOrdersTestUpdatreInsert()
+        {
+            var r = new OrderRepository(_connectionString);
+            var ins = r.Insert(new Order(Guid.NewGuid(), new Guid("00000000-0000-0000-0000-000000000007"), OrderStatus.Preparing, DateTime.Now, 10, 4));
+            r.Get(ins.Id).Status.Should().Be(ins.Status);
+            r.UpdateStatus(ins.Id, OrderStatus.Canceled);
+            r.Get(ins.Id).Status.Should().Be(OrderStatus.Canceled);
+        }
     }
 }

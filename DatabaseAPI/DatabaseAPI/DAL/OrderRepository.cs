@@ -15,8 +15,8 @@ namespace DatabaseAPI.DAL
         {
         }
 
-        public IEnumerable<Order> GetKitchenOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Preparing)).Get<Order>();
-        public IEnumerable<Order> GetServiceOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Serving)).Get<Order>();
+        public IEnumerable<Order> GetKitchenOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Preparing)).Get<Order>(); //FIXME: Change from raw to standard
+        public IEnumerable<Order> GetServiceOrders() => Query().WhereRaw(EnumCaster.OrderStatus.ToQuery(OrderStatus.Serving)).Get<Order>(); //FIXME: Change from raw to standard
         public bool UpdateStatus(Guid id, OrderStatus newStatus) => Query().Where(_columnNames[0], id).Update(new { status = EnumCaster.OrderStatus.ToStr(newStatus) }) == 1;
     }
 }
