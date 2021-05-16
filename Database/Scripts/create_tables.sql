@@ -28,7 +28,7 @@ CREATE TABLE products
     status TEXT NOT NULL,
 
     PRIMARY KEY (id),
-    CHECK(status = 'Available' OR status = 'Withdrawn' OR )
+    CHECK(status = 'Available' OR status = 'Withdrawn' OR status = 'Paused')
 );
 
 CREATE TABLE order_items
