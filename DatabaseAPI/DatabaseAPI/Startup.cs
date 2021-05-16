@@ -38,8 +38,11 @@ namespace DatabaseAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseAPI", Version = "v1" });
             });
             services.AddScoped<IOrderServices, OrderServices>();
+            services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<IDiscountServices, DiscountServices>();
             services.AddScoped<IOrderRepository>(x => new OrderRepository(ConnectionString));
             services.AddScoped<IProductRepository>(x => new ProductRepository(ConnectionString));
+            services.AddScoped<IDiscountRepository>(x => new DiscountRepository(ConnectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

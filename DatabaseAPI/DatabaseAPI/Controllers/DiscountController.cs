@@ -13,11 +13,13 @@ namespace DatabaseAPI.Controllers
     [ApiController]
     public class DiscountController : ControllerBase
     {
+        private IDiscountServices _discountServices;
+
         [HttpGet("available")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Discount>))]
         public async Task<IEnumerable<Discount>> GetAvailableDiscounts()
         {
-            return new List<Discount>();
+            return await _discountServices.GetAvailable();
         }
 
         [HttpGet]
