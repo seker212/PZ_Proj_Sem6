@@ -8,8 +8,10 @@ namespace DatabaseAPI.ApiModels
     public class Discount
     {
         public Guid Id { get; }
-        public DatabaseModels.DiscountType Type { get; }
-        public double SetPrice { get; }
-        public IEnumerable<Product> Products { get; }
+        public bool? IsAvailable { get; }
+        public double? SetPrice { get; }
+        public double? PriceDropAmmount { get; }
+        public double? PriceDropPercent { get; }
+        public IEnumerable<Product>? Products { get; }
     }
 }
