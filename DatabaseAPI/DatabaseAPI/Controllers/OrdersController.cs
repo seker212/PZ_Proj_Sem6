@@ -35,11 +35,18 @@ namespace DatabaseAPI.Controllers
         }
 
         //TODO: POSTS
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
-        //public IActionResult PostOrder([FromBody] OrderPost order)
-        //{
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
+        public IActionResult PostOrder([FromBody] OrderPost order)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+
+            return Ok();
+        }
 
         //[HttpPost("/backupOrders")]
         //[ProducesResponseType(StatusCodes.Status201Created)]

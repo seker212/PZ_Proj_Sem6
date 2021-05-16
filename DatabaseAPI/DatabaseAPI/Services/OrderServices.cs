@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DatabaseAPI.DAL;
 
@@ -10,6 +11,8 @@ namespace DatabaseAPI.Services
     {
         private IOrderRepository _orderRepository;
         private IProductRepository _productRepository;
+        private static int ticketNumber = 0;
+        private static int usingResource = 0;
 
         public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository)
         {
@@ -63,6 +66,32 @@ namespace DatabaseAPI.Services
                     result.Add(new ApiModels.OrderProducts(order.Id, products, order.TicketNumber));
                 }
                 return result.AsEnumerable();
+            });
+        }
+
+        public Task<ApiModels.OrderPost> PostOrder(ApiModels.OrderPost orderPost)
+        {
+            return Task.Run(() =>
+            {
+                var id = Guid.NewGuid();
+                if(0 == Interlocked.Exchange(ref usingResource, 1))
+                {
+                    DatabaseModels.Order order = new DatabaseModels.Order(id, orderPost.CashierId, DatabaseModels.OrderStatus.Preparing, orderPost.CreatedAt, orderPost.Price, ticketNumber);
+                    Interlocked.Exchange(ref usingResource, 0);
+                }
+                foreach (var product in orderPost.Products)
+                {
+                    double price = _productRepository.GetProductPrice(product.Id);
+                    DatabaseModels.OrderItems orderItems = new DatabaseModels.OrderItems(id, product.Id, product.Count, price);
+                }
+                foreach(var discount in orderPost.Discounts)
+                {
+                    if (discount != null)
+                    {
+
+                    }
+                }
+                //DatabaseModels.Order order = new DatabaseModels.Order(Guid.NewGuid(), orderPost.CashierId, DatabaseModels.OrderStatus.Preparing, orderPost.CreatedAt, orderPost.Price, );
             });
         }
     }

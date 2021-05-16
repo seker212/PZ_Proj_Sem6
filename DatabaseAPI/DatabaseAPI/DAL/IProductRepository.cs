@@ -7,5 +7,6 @@ namespace DatabaseAPI.DAL
     public interface IProductRepository
     {
         IEnumerable<(Guid id, string name, int quantity)> GetOrderProducts(Order order);
+        public double GetProductPrice(Guid id);
     }
 }
