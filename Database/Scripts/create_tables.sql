@@ -6,31 +6,29 @@ CREATE TABLE cashiers
     PRIMARY KEY (id)
 );
 
-CREATE TYPE order_status AS ENUM ('Preparing', 'Serving', 'Finished', 'Canceled');
-
 CREATE TABLE orders
 (
     id            uuid,
     cashier_id    uuid,
-    status        order_status NOT NULL,
+    status        TEXT NOT NULL,
     created_at    TIMESTAMP    NOT NULL,
     price         FLOAT8        NOT NULL,
     ticket_number INT          NOT NULL,
 
     PRIMARY KEY (id),
-    FOREIGN KEY (cashier_id) REFERENCES cashiers (id)
+    FOREIGN KEY (cashier_id) REFERENCES cashiers (id),
+    CHECK(status = 'Preparing' OR status = 'Serving' OR status = 'Finished' OR status = 'Canceled')
 );
-
-CREATE TYPE product_status AS ENUM ('Available', 'Withdrawn', 'Paused');
 
 CREATE TABLE products
 (
     id     uuid,
     name   TEXT           NOT NULL,
     price  FLOAT8          NOT NULL,
-    status product_status NOT NULL,
+    status TEXT NOT NULL,
 
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CHECK(status = 'Available' OR status = 'Withdrawn' OR )
 );
 
 CREATE TABLE order_items
@@ -45,16 +43,14 @@ CREATE TABLE order_items
     FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
-CREATE TYPE discount_type AS ENUM ('Items set', 'Price drop', 'Percentage price drop');
-
 CREATE TABLE discounts
 (
     id                 uuid,
-    type               discount_type NOT NULL,
+    is_available       BOOLEAN NOT NULL,
     set_price          FLOAT8,
     price_drop_amount  FLOAT8,
     price_drop_percent FLOAT8,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
 );
 
 CREATE TABLE order_discount
@@ -75,12 +71,11 @@ create TABLE discounts_set_items(
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
-CREATE TYPE user_type as ENUM ('Admin', 'Manager');
-
 CREATE TABLE users(
     id uuid,
     username TEXT NOT NULL,
     password_hash TEXT NOT NULL,
-    user_type user_type NOT NULL,
-    PRIMARY KEY (id)
+    user_type TEXT NOT NULL,
+    PRIMARY KEY (id),
+    CHECK(user_type = 'Admin' OR user_type = 'Manager')
 )
