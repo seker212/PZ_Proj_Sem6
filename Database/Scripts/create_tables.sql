@@ -50,7 +50,7 @@ CREATE TABLE discounts
     set_price          FLOAT8,
     price_drop_amount  FLOAT8,
     price_drop_percent FLOAT8,
-    PRIMARY KEY (id),
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE order_discount
