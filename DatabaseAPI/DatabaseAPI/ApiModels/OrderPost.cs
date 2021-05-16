@@ -8,6 +8,14 @@ namespace DatabaseAPI.ApiModels
 {
     public class OrderPost : IValidatableObject
     {
+        public OrderPost(Guid cashierId, double price, IEnumerable<Product> products, IEnumerable<DiscountBasic> discounts, DateTime createdAt)
+        {
+            CashierId = cashierId;
+            Price = price;
+            Products = products;
+            Discounts = discounts;
+            CreatedAt = createdAt;
+        }
         public Guid CashierId { get; }
         public double Price { get; }
         public IEnumerable<Product> Products { get; }

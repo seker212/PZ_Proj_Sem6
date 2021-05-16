@@ -15,5 +15,6 @@ namespace DatabaseAPI.DAL
         }
 
         public IEnumerable<Discount> GetAvailable() => Query().Where("is_available", true).Get<Discount>();
+        public bool GetDiscountStatus(Guid id) => Query().Select("is_available").Where("id", id).First<bool>();
     }
 }

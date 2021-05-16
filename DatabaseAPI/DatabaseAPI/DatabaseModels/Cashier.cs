@@ -17,7 +17,7 @@ namespace DatabaseAPI.DatabaseModels
 
         public Guid Id { get; }
         public string FullName { get; }
-        public double Bilans { get; }
+        public double Bilans { get; set; }
         public object[] Data => new object[] { Id, FullName, Bilans };
         public static string[] ColumnNames => new string[] { "id", "full_name", "bilans" };
     }

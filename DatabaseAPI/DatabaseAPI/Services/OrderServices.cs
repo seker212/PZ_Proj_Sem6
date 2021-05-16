@@ -11,13 +11,21 @@ namespace DatabaseAPI.Services
     {
         private IOrderRepository _orderRepository;
         private IProductRepository _productRepository;
+        private IDiscountRepository _discountRepository;
+        private IPairRepository<DatabaseModels.OrderItems> _orderItemsRepository;
+        private IOrderDiscountRepository _orderDiscountRepository;
+        private IObjectRepository<DatabaseModels.Cashier> _cashierRepository;
         private static int ticketNumber = 0;
         private static int usingResource = 0;
 
-        public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository)
+        public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository, IDiscountRepository discountRepository, IPairRepository<DatabaseModels.OrderItems> orderItemsRepository, IOrderDiscountRepository orderDiscountRepository, IObjectRepository<DatabaseModels.Cashier> cashierRepository)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
+            _discountRepository = discountRepository;
+            _orderItemsRepository = orderItemsRepository;
+            _orderDiscountRepository = orderDiscountRepository;
+            _cashierRepository = cashierRepository;
         }
 
         public Task<bool> UpdateStatus(Guid key, DatabaseModels.OrderStatus newStatus)
@@ -74,24 +82,56 @@ namespace DatabaseAPI.Services
             return Task.Run(() =>
             {
                 var id = Guid.NewGuid();
-                if(0 == Interlocked.Exchange(ref usingResource, 1))
+                int ticketNum;
+                DatabaseModels.OrderItems orderItems;
+                DatabaseModels.OrderDiscount orderDiscount;
+
+                ApiModels.OrderPost resultOrderPost;
+
+                if (0 == Interlocked.Exchange(ref usingResource, 1))
                 {
-                    DatabaseModels.Order order = new DatabaseModels.Order(id, orderPost.CashierId, DatabaseModels.OrderStatus.Preparing, orderPost.CreatedAt, orderPost.Price, ticketNumber);
+                    ticketNum = ticketNumber;
                     Interlocked.Exchange(ref usingResource, 0);
                 }
+                DatabaseModels.Order order = _orderRepository.Insert(new DatabaseModels.Order(id, orderPost.CashierId, DatabaseModels.OrderStatus.Preparing, orderPost.CreatedAt, orderPost.Price, ticketNum));
                 foreach (var product in orderPost.Products)
                 {
                     double price = _productRepository.GetProductPrice(product.Id);
-                    DatabaseModels.OrderItems orderItems = new DatabaseModels.OrderItems(id, product.Id, product.Count, price);
+                    orderItems = _orderItemsRepository.Insert(new DatabaseModels.OrderItems(id, product.Id, product.Count, price));
                 }
                 foreach(var discount in orderPost.Discounts)
                 {
                     if (discount != null)
                     {
-
+                        bool isAvailable = _discountRepository.GetDiscountStatus(discount.Id);
+                        if(isAvailable)
+                        {
+                            orderDiscount = _orderDiscountRepository.Insert(new DatabaseModels.OrderDiscount(id, discount.Id, discount.Count));
+                        }
+                        else
+                        {
+                            throw new Exception(); //TODO: Use more descriptive exception
+                        }
                     }
                 }
-                //DatabaseModels.Order order = new DatabaseModels.Order(Guid.NewGuid(), orderPost.CashierId, DatabaseModels.OrderStatus.Preparing, orderPost.CreatedAt, orderPost.Price, );
+                DatabaseModels.Cashier cashier = _cashierRepository.Get(orderPost.CashierId);
+                cashier.Bilans += orderPost.Price;
+                cashier = _cashierRepository.Update(cashier);
+
+                var orderProductsItems = _productRepository.GetOrderProducts(order);
+                var orderPrice = _productRepository.GetOrderProductPrices(order).Sum();
+                var orderDiscounts = _orderDiscountRepository.GetOrderDiscounts(order);
+                List <ApiModels.DiscountBasic> discountBasics = new List<ApiModels.DiscountBasic>();
+                List<ApiModels.Product> orderProducts = new List<ApiModels.Product>();
+                foreach(var e in orderDiscounts)
+                {
+                    discountBasics.Add(new ApiModels.DiscountBasic(e.DiscountId, e.Quantity));
+                }
+                foreach(var e in orderProductsItems)
+                {
+                    orderProducts.Add(new ApiModels.Product(e.id, e.name, e.quantity));
+                }
+                return new ApiModels.OrderPost(cashier.Id, orderPrice, orderProducts, discountBasics, order.CreatedAt);
             });
         }
     }
