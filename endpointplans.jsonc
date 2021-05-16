@@ -12,7 +12,8 @@
         {
             "id": "GUID",
             "count": 1
-        }
+        }   
+        
     ]
 },
 
@@ -26,7 +27,8 @@
             "name": "string",
             "count": 1
         }
-    ]
+    ],
+    "ticket_number": 25
 },
 
 // GET /discounts
@@ -38,7 +40,8 @@
         "products":[
             {
                 "id": "GUID",
-                "name": "string"
+                "name": "string",
+
                 "count": 2,
             }
         ]

@@ -9,11 +9,11 @@ using DatabaseAPI.Services;
 
 namespace DatabaseAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/Discount")]
     [ApiController]
     public class DiscountController : ControllerBase
     {
-        [HttpGet("/available")]
+        [HttpGet("available")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Discount>))]
         public async Task<IEnumerable<Discount>> GetAvailableDiscounts()
         {
@@ -27,7 +27,7 @@ namespace DatabaseAPI.Controllers
             return StatusCode(501);
         }
 
-        [HttpPut("/{guid}/status")]
+        [HttpPut("{guid}/status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateStatus([FromRoute] Guid guid, [FromQuery] bool available)
         {

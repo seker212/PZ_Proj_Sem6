@@ -9,7 +9,7 @@ using DatabaseAPI.Services;
 
 namespace DatabaseAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     [ApiController]
     public class OrdersController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace DatabaseAPI.Controllers
             _orderServices = orderServices;
         }
 
-        [HttpGet("/kitchen")]
+        [HttpGet("kitchen")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OrderProducts>))]
         public async Task<IEnumerable<OrderProducts>> GetKitchenOrders()
         {
             return await _orderServices.GetKitchenOrders(); 
         }
 
-        [HttpGet("/service")]
+        [HttpGet("service")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<OrderProducts>))]
         public async Task<IEnumerable<OrderProducts>> GetServiceOrders()
         {
@@ -47,7 +47,7 @@ namespace DatabaseAPI.Controllers
         //{
         //}
 
-        [HttpPut("/kitchen/{orderId}")]
+        [HttpPut("kitchen/{orderId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateOrderToServing(Guid orderId)
         {
@@ -60,7 +60,7 @@ namespace DatabaseAPI.Controllers
                 return StatusCode(500);
         }
 
-        [HttpPut("/service/{orderId}")]
+        [HttpPut("service/{orderId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateOrderToFinished(Guid orderId)
         {
@@ -73,7 +73,7 @@ namespace DatabaseAPI.Controllers
                 return StatusCode(500);
         }
 
-        [HttpPut("/cancelOrder/{orderId}")]
+        [HttpPut("cancelOrder/{orderId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> UpdateOrderToCanceled(Guid orderId)
