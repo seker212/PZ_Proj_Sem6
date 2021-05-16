@@ -9,7 +9,7 @@ namespace DatabaseAPI.DAL.Tests
     [TestClass()]
     public class RepositoryTests
     {
-        static string _connectionString = "Host=localhost;Username=postgres;Password=mysecretpassword;Database=postgres";
+        static string _connectionString = "Host=20.67.241.198;Username=postgres;Password=eBps7keh3yXe8zCg;Database=postgres;Port=54846";
 
         [TestMethod()]
         public void TryGetDiscountsTest()
