@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseAPITests", "Databas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenApp", "KitchenApp\KitchenApp.csproj", "{2C7AD70F-B4AF-43E6-B498-65CA3C38638A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSApp", "POS\POSApp.csproj", "{1E6AB946-C397-49BD-A197-C888461590E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2C7AD70F-B4AF-43E6-B498-65CA3C38638A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C7AD70F-B4AF-43E6-B498-65CA3C38638A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C7AD70F-B4AF-43E6-B498-65CA3C38638A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E6AB946-C397-49BD-A197-C888461590E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E6AB946-C397-49BD-A197-C888461590E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E6AB946-C397-49BD-A197-C888461590E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E6AB946-C397-49BD-A197-C888461590E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
