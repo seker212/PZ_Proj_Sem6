@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,13 @@ namespace POSApp {
 
 
     public partial class Form1 : Form {
+        NumberFormatInfo nfi = new NumberFormatInfo();
+
         public Form1() {
             InitializeComponent();
+
+            this.nfi.NumberDecimalSeparator = ".";
+            this.nfi.NumberDecimalDigits = 2;
         }
 
         private void PayButton_Click(object sender, EventArgs e) {
@@ -24,8 +30,16 @@ namespace POSApp {
             // todo
         }
 
-        private void updateSumTextBox() {
-            // todo
+        private void UpdateSumTextBox() {
+            var panel = OrderTableLayoutPanel;
+            double sum = 0;
+
+            for (int i = 1; i < panel.RowCount; i++) {
+                var amount = panel.GetControlFromPosition(1, i);
+                var price = panel.GetControlFromPosition(2, i);
+                sum += Convert.ToDouble(amount.Text, nfi) * Convert.ToDouble(price.Text, nfi);
+            }
+            SumTextBox.Text = string.Format(nfi, "{0:N}", sum)+" zł";
         }
 
         private void ProductsTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
@@ -41,7 +55,7 @@ namespace POSApp {
                     this.OrderTableLayoutPanel.Controls.Add(new Button() { Font = new Font("Century Gothic", 9), Text = "e" }, 3, this.OrderTableLayoutPanel.RowCount - 1);
                     this.OrderTableLayoutPanel.Controls.Add(delButton, 4, this.OrderTableLayoutPanel.RowCount - 1);
 
-                    //updateSumTextBox();
+                    UpdateSumTextBox();
                 }
             }
         }
@@ -72,9 +86,8 @@ namespace POSApp {
                 panel.RowStyles.RemoveAt(removeStyle);
 
             panel.RowCount--;
-
+            UpdateSumTextBox();
         }
-
     }
 
     class DeleteButtonClass {

@@ -23,23 +23,23 @@
         /// jej zawartości w edytorze kodu.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Produkt1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Produkt2");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Kategoria1", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Produkt1");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Produkt2");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Produkt3");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Kategoria2", new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Produkt1");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Produkt2");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Kategoria3", new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9});
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Produkt1");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Produkt2");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Kategoria1", new System.Windows.Forms.TreeNode[] {
+            treeNode11,
+            treeNode12});
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Produkt1");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Produkt2");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Produkt3");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Kategoria2", new System.Windows.Forms.TreeNode[] {
+            treeNode14,
+            treeNode15,
+            treeNode16});
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Produkt1");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Produkt2");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Kategoria3", new System.Windows.Forms.TreeNode[] {
+            treeNode18,
+            treeNode19});
             this.ProductsTreeView = new System.Windows.Forms.TreeView();
             this.CancelButton = new System.Windows.Forms.Button();
             this.PayButton = new System.Windows.Forms.Button();
@@ -58,30 +58,30 @@
             this.ProductsTreeView.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ProductsTreeView.Location = new System.Drawing.Point(12, 12);
             this.ProductsTreeView.Name = "ProductsTreeView";
-            treeNode1.Name = "Węzeł3";
-            treeNode1.Text = "Produkt1";
-            treeNode2.Name = "Węzeł4";
-            treeNode2.Text = "Produkt2";
-            treeNode3.Name = "Węzeł0";
-            treeNode3.Text = "Kategoria1";
-            treeNode4.Name = "Węzeł5";
-            treeNode4.Text = "Produkt1";
-            treeNode5.Name = "Węzeł6";
-            treeNode5.Text = "Produkt2";
-            treeNode6.Name = "Węzeł7";
-            treeNode6.Text = "Produkt3";
-            treeNode7.Name = "Węzeł1";
-            treeNode7.Text = "Kategoria2";
-            treeNode8.Name = "Węzeł8";
-            treeNode8.Text = "Produkt1";
-            treeNode9.Name = "Węzeł9";
-            treeNode9.Text = "Produkt2";
-            treeNode10.Name = "Węzeł2";
-            treeNode10.Text = "Kategoria3";
+            treeNode11.Name = "Węzeł3";
+            treeNode11.Text = "Produkt1";
+            treeNode12.Name = "Węzeł4";
+            treeNode12.Text = "Produkt2";
+            treeNode13.Name = "Węzeł0";
+            treeNode13.Text = "Kategoria1";
+            treeNode14.Name = "Węzeł5";
+            treeNode14.Text = "Produkt1";
+            treeNode15.Name = "Węzeł6";
+            treeNode15.Text = "Produkt2";
+            treeNode16.Name = "Węzeł7";
+            treeNode16.Text = "Produkt3";
+            treeNode17.Name = "Węzeł1";
+            treeNode17.Text = "Kategoria2";
+            treeNode18.Name = "Węzeł8";
+            treeNode18.Text = "Produkt1";
+            treeNode19.Name = "Węzeł9";
+            treeNode19.Text = "Produkt2";
+            treeNode20.Name = "Węzeł2";
+            treeNode20.Text = "Kategoria3";
             this.ProductsTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode7,
-            treeNode10});
+            treeNode13,
+            treeNode17,
+            treeNode20});
             this.ProductsTreeView.Size = new System.Drawing.Size(220, 426);
             this.ProductsTreeView.TabIndex = 0;
             this.ProductsTreeView.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.ProductsTreeView_NodeMouseDoubleClick);
@@ -175,7 +175,7 @@
             this.SumTextBox.ReadOnly = true;
             this.SumTextBox.Size = new System.Drawing.Size(331, 80);
             this.SumTextBox.TabIndex = 5;
-            this.SumTextBox.Text = "32,64 zł";
+            this.SumTextBox.Text = "0.00 zł";
             this.SumTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
