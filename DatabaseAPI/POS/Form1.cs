@@ -14,12 +14,15 @@ namespace POSApp {
 
     public partial class Form1 : Form {
         NumberFormatInfo nfi = new NumberFormatInfo();
-
         public Form1() {
             InitializeComponent();
 
             this.nfi.NumberDecimalSeparator = ".";
             this.nfi.NumberDecimalDigits = 2;
+            this.ProductsListView.Items.Add(new ListViewItem(new string[] { "produkt1", "2.50" }));
+            this.ProductsListView.Items.Add(new ListViewItem(new string[] { "produkt2", "4.00" }));
+            this.ProductsListView.Items.Add(new ListViewItem(new string[] { "produkt3", "10.99" }));
+
         }
         private void ClearAll() {
             var panel = OrderTableLayoutPanel;
@@ -48,7 +51,7 @@ namespace POSApp {
                 StartPosition = FormStartPosition.CenterScreen,
                 CausesValidation = true,
             };
-            Label textLabel = new Label() { Left = 25, Top = 20, Text = "Wybierz sposób płatności:" };
+            Label textLabel = new Label() { Left = 25, Top = 20, Width = 200, Text = "Wybierz sposób płatności:" };
             Button cash = new Button() { Left = 25, Top = 50, Width = 75, Text = "Gotówka", DialogResult = DialogResult.Yes};
             Button card = new Button() { Left = 125, Top = 50, Width = 75, Text = "Karta", DialogResult = DialogResult.No};
             Button cancel = new Button() { Left = 225, Top = 50, Width = 75, Text = "Anuluj", DialogResult = DialogResult.Cancel};
@@ -93,27 +96,28 @@ namespace POSApp {
             SumTextBox.Text = string.Format(nfi, "{0:N}", sum)+" zł";
         }
 
-        private void ProductsTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
-            if (sender is TreeView) {
-                if (((TreeView)sender).SelectedNode.LastNode == null) {
-                    Button delButton = new DeleteButtonClass().DeleteButton;
-                    delButton.Click += new System.EventHandler(this.DeleteButton_Click);
-                    Button plusButton = new PlusButtonClass().PlusButton;
-                    plusButton.Click += new System.EventHandler(this.PlusButton_Click);
-                    Button minusButton = new MinusButtonClass().MinusButton;
-                    minusButton.Click += new System.EventHandler(this.MinusButton_Click);
+        private void ProductsListView_DoubleClick(object sender, EventArgs e) {
+            Button delButton = new DeleteButtonClass().DeleteButton;
+            delButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            Button plusButton = new PlusButtonClass().PlusButton;
+            plusButton.Click += new System.EventHandler(this.PlusButton_Click);
+            Button minusButton = new MinusButtonClass().MinusButton;
+            minusButton.Click += new System.EventHandler(this.MinusButton_Click);
 
-                    this.OrderTableLayoutPanel.RowCount += 1;
-                    this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = ((TreeView)sender).SelectedNode.Text }, 0, this.OrderTableLayoutPanel.RowCount - 1);
-                    this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = "1" }, 1, this.OrderTableLayoutPanel.RowCount - 1);
-                    this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = "7" }, 2, this.OrderTableLayoutPanel.RowCount - 1);
-                    this.OrderTableLayoutPanel.Controls.Add(minusButton, 3, this.OrderTableLayoutPanel.RowCount - 1);
-                    this.OrderTableLayoutPanel.Controls.Add(plusButton, 4, this.OrderTableLayoutPanel.RowCount - 1);
-                    this.OrderTableLayoutPanel.Controls.Add(delButton, 5, this.OrderTableLayoutPanel.RowCount - 1);
+            var item = ProductsListView.SelectedItems[0];
+            this.OrderTableLayoutPanel.RowCount += 1;
+            this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = item.SubItems[0].Text }, 0, this.OrderTableLayoutPanel.RowCount - 1);
+            this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = "1" }, 1, this.OrderTableLayoutPanel.RowCount - 1);
+            this.OrderTableLayoutPanel.Controls.Add(new Label() { Font = new Font("Century Gothic", 14), Text = item.SubItems[1].Text }, 2, this.OrderTableLayoutPanel.RowCount - 1);
+            this.OrderTableLayoutPanel.Controls.Add(minusButton, 3, this.OrderTableLayoutPanel.RowCount - 1);
+            this.OrderTableLayoutPanel.Controls.Add(plusButton, 4, this.OrderTableLayoutPanel.RowCount - 1);
+            this.OrderTableLayoutPanel.Controls.Add(delButton, 5, this.OrderTableLayoutPanel.RowCount - 1);
 
-                    UpdateSumTextBox();
-                }
-            }
+            UpdateSumTextBox();
+        }
+
+        private void ProductsListView_SelectedIndexChanged(object sender, EventArgs e) {
+
         }
 
         private void DeleteButton_Click(object sender, EventArgs e) {
@@ -160,7 +164,6 @@ namespace POSApp {
             panel.GetControlFromPosition(1, rowIndex).Text = (value+1).ToString();
             UpdateSumTextBox();
         }
-        
     }
 
     class DeleteButtonClass {
@@ -170,7 +173,8 @@ namespace POSApp {
             this.DeleteButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.TabIndex = 14;
-            this.DeleteButton.Text = "d";
+            this.DeleteButton.Text = "✕";
+            this.DeleteButton.TextAlign = ContentAlignment.MiddleCenter;
             this.DeleteButton.UseVisualStyleBackColor = false;
         }
     }
@@ -181,7 +185,8 @@ namespace POSApp {
             this.MinusButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.MinusButton.Name = "PlusButton";
             this.MinusButton.TabIndex = 14;
-            this.MinusButton.Text = "-";
+            this.MinusButton.Text = "−";
+            this.MinusButton.TextAlign = ContentAlignment.MiddleCenter;
             this.MinusButton.UseVisualStyleBackColor = false;
         }
     }
@@ -193,6 +198,7 @@ namespace POSApp {
             this.PlusButton.Name = "PlusButton";
             this.PlusButton.TabIndex = 14;
             this.PlusButton.Text = "+";
+            this.PlusButton.TextAlign = ContentAlignment.MiddleCenter;
             this.PlusButton.UseVisualStyleBackColor = false;
         }
     }
