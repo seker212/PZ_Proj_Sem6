@@ -35,11 +35,18 @@ namespace DatabaseAPI.Controllers
         }
 
         //TODO: POSTS
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
-        //public IActionResult PostOrder([FromBody] OrderPost order)
-        //{
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OrderPost))]
+        public async Task<IActionResult> PostOrder([FromBody] OrderPost order)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await _orderServices.PostOrder(order);
+            return Ok(result);
+        }
 
         //[HttpPost("/backupOrders")]
         //[ProducesResponseType(StatusCodes.Status201Created)]

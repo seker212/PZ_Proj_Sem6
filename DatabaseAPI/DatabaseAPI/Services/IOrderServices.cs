@@ -11,5 +11,6 @@ namespace DatabaseAPI.Services
         Task<IEnumerable<OrderProducts>> GetKitchenOrders();
         Task<IEnumerable<OrderProducts>> GetServiceOrders();
         Task<bool> UpdateStatus(Guid key, OrderStatus newStatus);
+        Task<ApiModels.OrderPost> PostOrder(ApiModels.OrderPost orderPost);
     }
 }

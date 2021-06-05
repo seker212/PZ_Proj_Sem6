@@ -9,5 +9,7 @@ namespace DatabaseAPI.DAL
         IEnumerable<Product> GetAvailableProducts();
         IEnumerable<(Guid id, string name, int quantity)> GetDiscountProducts(Discount discount);
         IEnumerable<(Guid id, string name, int quantity)> GetOrderProducts(Order order);
+        public double GetProductPrice(Guid id);
+        public IEnumerable<double> GetOrderProductPrices(Order order);
     }
 }

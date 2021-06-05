@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DatabaseAPI.DAL
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
         IEnumerable<Order> GetKitchenOrders();
         IEnumerable<Order> GetServiceOrders();
