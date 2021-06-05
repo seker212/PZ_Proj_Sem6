@@ -18,8 +18,13 @@ namespace KitchenApp
         public Form1()
         {
             InitializeComponent();
-            //var client = new RestClient("https://api.twitter.com/1.1");
-            //client.Authenticator = new HttpBasicAuthenticator("username", "password");
+            var client = new RestClient("https://localhost:44328/");
+            //client.Authenticator = new HttpBasicAuthenticator("postgres", "mysecretpassword");
+
+            //get daje full liste zamówień
+            //brać liste i odświeżać co jakiś czas
+            //ładować pierwsze 3 i potem oddawać wykonanie konkretnych
+            //get api/Orders/kitchen
 
         }
 
@@ -27,18 +32,27 @@ namespace KitchenApp
         {
             listBox1.Items.Clear();
             listBox1.Items.Add("Wykonano zamówienie, wczytuję nowe");
+            //załadować zamówienie z listy
+            //wysłać ukończenie danego order po id
+            //put api/Orders/kitchen/{orderId}
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             listBox2.Items.Clear();
             listBox2.Items.Add("Wykonano zamówienie, wczytuję nowe");
+            //załadować zamówienie z listy
+            //wysłać ukończenie danego order po id
+            //put api/Orders/kitchen/{orderId}
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             listBox3.Items.Clear();
             listBox3.Items.Add("Wykonano zamówienie, wczytuję nowe");
+            //załadować zamówienie z listy
+            //wysłać ukończenie danego order po id
+            //put api/Orders/kitchen/{orderId}
         }
     }
 }
