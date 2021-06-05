@@ -37,12 +37,15 @@ namespace DatabaseAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseAPI", Version = "v1" });
             });
-            services.AddScoped<IOrderServices, OrderServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IDiscountServices, DiscountServices>();
             services.AddScoped<IOrderRepository>(x => new OrderRepository(ConnectionString));
             services.AddScoped<IProductRepository>(x => new ProductRepository(ConnectionString));
             services.AddScoped<IDiscountRepository>(x => new DiscountRepository(ConnectionString));
+            services.AddScoped<IOrderServices, OrderServices>();
+            services.AddScoped<IOrderDiscountRepository>(x => new OrderDiscountRepository(ConnectionString));
+            services.AddScoped<IPairRepository<DatabaseModels.OrderItems>>(x => new PairRepository<DatabaseModels.OrderItems>(ConnectionString, "order_items", DatabaseModels.OrderItems.ColumnNames));
+            services.AddScoped<IObjectRepository<DatabaseModels.Cashier>>(x => new ObjectRepository<DatabaseModels.Cashier>(ConnectionString, "cashiers", DatabaseModels.Cashier.ColumnNames));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
