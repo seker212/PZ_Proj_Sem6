@@ -122,6 +122,14 @@ INSERT INTO users VALUES
     ('FA684D6E-D2C6-481D-8617-9EA5963230C4', 'Manager1', '9b50bb25814ff13d1a38c5ec2393bceb', 'Manager');
 """
 
+sq23 = """
+INSERT INTO orders VALUES
+    ('00000000-0000-0000-0000-000000000019', '00000000-0000-0000-0000-000000000007', 'Serving', '2018-02-08 04:05:06', 10.99, 15),
+    ('00000000-0000-0000-0000-00000000001A', '00000000-0000-0000-0000-000000000007', 'Preparing', '2018-03-08 13:15:56', 8.98, 03),
+    ('00000000-0000-0000-0000-00000000001B', '00000000-0000-0000-0000-000000000008', 'Preparing', '2017-11-10 23:55:46', 0.99, 99),
+    ('00000000-0000-0000-0000-00000000001C', '00000000-0000-0000-0000-000000000008', 'Preparing', '2017-10-11 11:32:46', 2.99, 01);
+"""
+
 #establishing the connection
 conn = psycopg2.connect(
    database="postgres", user='postgres', password='mysecretpassword', host='127.0.0.1', port= '5432'
@@ -140,7 +148,8 @@ sql0 = '''CREATE database mydatabase;'''
 #cursor.execute(sql0)
 #cursor.execute(sql1)
 #cursor.execute(sql2)
-cursor.execute(sql)
+cursor.execute(sq23)
+#cursor.execute(sql)
 #------------------------------------------------------
 
 rows = cursor.fetchall()
