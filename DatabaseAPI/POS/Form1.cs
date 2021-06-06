@@ -66,8 +66,14 @@ namespace POSApp {
             while (true) {
                 if (dialogResult == DialogResult.OK) {
                     if (loginBox.Text != "" && nameBox.Text != "" && passwordBox.Text != "") {
-                        // idk log in or smth
-                        return;
+                        var request = new RestRequest("api/User/login/cashier");
+                        request.AddParameter("username", loginBox.Text);
+                        request.AddParameter("cashierName", nameBox.Text);
+                        request.AddParameter("password", passwordBox.Text);
+                        var response = client.Get(request);
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                            return;
+                        else dialogResult = login.ShowDialog();
                     } else {
                         dialogResult = login.ShowDialog();
                     }
