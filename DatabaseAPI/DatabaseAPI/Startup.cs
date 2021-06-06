@@ -19,6 +19,7 @@ namespace DatabaseAPI
 {
     public class Startup
     {
+        public static IDictionary<string, DatabaseModels.User> ActiveSessions = new Dictionary<string, DatabaseModels.User>();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,15 +38,19 @@ namespace DatabaseAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseAPI", Version = "v1" });
             });
-            services.AddScoped<IProductServices, ProductServices>();
-            services.AddScoped<IDiscountServices, DiscountServices>();
+            
+            services.AddScoped<IUserRepository>(x => new UserRepository(ConnectionString));
             services.AddScoped<IOrderRepository>(x => new OrderRepository(ConnectionString));
+            services.AddScoped<ICashierRepository>(x => new CashierRepository(ConnectionString));
             services.AddScoped<IProductRepository>(x => new ProductRepository(ConnectionString));
             services.AddScoped<IDiscountRepository>(x => new DiscountRepository(ConnectionString));
-            services.AddScoped<IOrderServices, OrderServices>();
             services.AddScoped<IOrderDiscountRepository>(x => new OrderDiscountRepository(ConnectionString));
             services.AddScoped<IPairRepository<DatabaseModels.OrderItems>>(x => new PairRepository<DatabaseModels.OrderItems>(ConnectionString, "order_items", DatabaseModels.OrderItems.ColumnNames));
-            services.AddScoped<IObjectRepository<DatabaseModels.Cashier>>(x => new ObjectRepository<DatabaseModels.Cashier>(ConnectionString, "cashiers", DatabaseModels.Cashier.ColumnNames));
+            
+            services.AddScoped<IOrderServices, OrderServices>();
+            services.AddScoped<IProductServices, ProductServices>();
+            services.AddScoped<IDiscountServices, DiscountServices>();
+            services.AddScoped<IUserServices, UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
