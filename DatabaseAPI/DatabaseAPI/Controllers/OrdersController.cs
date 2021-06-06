@@ -35,7 +35,7 @@ namespace DatabaseAPI.Controllers
         }
 
         //TODO: POSTS
-        [HttpPost]
+        [HttpPost("kitchen")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OrderPost))]
         public async Task<IActionResult> PostOrder([FromBody] OrderPost order)
         {

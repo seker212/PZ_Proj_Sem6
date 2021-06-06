@@ -34,6 +34,7 @@
             this.ProductsListView = new System.Windows.Forms.ListView();
             this.ProductsName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ProductsPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.DiscountList = new System.Windows.Forms.CheckedListBox();
             this.OrderTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,7 +118,7 @@
             this.Test.Size = new System.Drawing.Size(28, 13);
             this.Test.TabIndex = 4;
             this.Test.Text = "Test";
-            this.Test.Visible = false;
+            this.Test.Click += new System.EventHandler(this.Test_Click);
             // 
             // SumTextBox
             // 
@@ -144,11 +145,10 @@
             this.ProductsListView.Location = new System.Drawing.Point(12, 12);
             this.ProductsListView.MultiSelect = false;
             this.ProductsListView.Name = "ProductsListView";
-            this.ProductsListView.Size = new System.Drawing.Size(220, 426);
+            this.ProductsListView.Size = new System.Drawing.Size(220, 260);
             this.ProductsListView.TabIndex = 6;
             this.ProductsListView.UseCompatibleStateImageBehavior = false;
             this.ProductsListView.View = System.Windows.Forms.View.Details;
-            this.ProductsListView.SelectedIndexChanged += new System.EventHandler(this.ProductsListView_SelectedIndexChanged);
             this.ProductsListView.DoubleClick += new System.EventHandler(this.ProductsListView_DoubleClick);
             // 
             // ProductsName
@@ -161,12 +161,24 @@
             this.ProductsPrice.Text = "Cena";
             this.ProductsPrice.Width = 70;
             // 
+            // DiscountList
+            // 
+            this.DiscountList.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.DiscountList.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DiscountList.FormattingEnabled = true;
+            this.DiscountList.Location = new System.Drawing.Point(12, 278);
+            this.DiscountList.Name = "DiscountList";
+            this.DiscountList.Size = new System.Drawing.Size(220, 158);
+            this.DiscountList.TabIndex = 8;
+            this.DiscountList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.DiscountList_ItemCheck);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DiscountList);
             this.Controls.Add(this.ProductsListView);
             this.Controls.Add(this.SumTextBox);
             this.Controls.Add(this.Test);
@@ -196,6 +208,7 @@
         private System.Windows.Forms.ListView ProductsListView;
         private System.Windows.Forms.ColumnHeader ProductsName;
         private System.Windows.Forms.ColumnHeader ProductsPrice;
+        private System.Windows.Forms.CheckedListBox DiscountList;
     }
 }
 

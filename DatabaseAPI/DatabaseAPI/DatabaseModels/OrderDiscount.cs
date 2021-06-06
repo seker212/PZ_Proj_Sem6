@@ -19,7 +19,7 @@ namespace DatabaseAPI.DatabaseModels
         public Guid DiscountId { get; }
         public int Quantity { get; }
 
-        public object[] Data => new object[] { OrderId, DiscountId };
+        public object[] Data => new object[] { OrderId, DiscountId, Quantity };
         public static string[] ColumnNames => new string[] { "order_id", "discount_id", "quantity" };
     }
 }
