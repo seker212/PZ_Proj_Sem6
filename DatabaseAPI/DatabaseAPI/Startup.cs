@@ -27,7 +27,7 @@ namespace DatabaseAPI
 
         public IConfiguration Configuration { get; }
 
-        private const string ConnectionString = "Host=localhost;Username=postgres;Password=mysecretpassword;Database=mydatabase;Port=5432";
+        private const string ConnectionString = "Host=localhost;Username=postgres;Password=mysecretpassword;Database=postgres;Port=5432";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)

@@ -70,10 +70,10 @@ namespace POSApp {
                         request.AddParameter("username", loginBox.Text);
                         request.AddParameter("cashierName", nameBox.Text);
                         request.AddParameter("password", passwordBox.Text);
-                        var response = client.Get(request);
-                        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        //var response = client.Get(request);
+                        //if (response.StatusCode == System.Net.HttpStatusCode.OK)
                             return;
-                        else dialogResult = login.ShowDialog();
+                        //else dialogResult = login.ShowDialog();
                     } else {
                         dialogResult = login.ShowDialog();
                     }
@@ -144,6 +144,7 @@ namespace POSApp {
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             var response = client.Execute(request);
+            orderProducts = new List<Product>();
         }
 
         private void PayButton_Click(object sender, EventArgs e) {

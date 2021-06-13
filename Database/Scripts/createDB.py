@@ -148,7 +148,7 @@ sql0 = '''CREATE database mydatabase;'''
 #cursor.execute(sql0)
 #cursor.execute(sql1)
 #cursor.execute(sql2)
-cursor.execute(sq23)
+#cursor.execute(sq23)
 #cursor.execute(sql)
 #------------------------------------------------------
 
