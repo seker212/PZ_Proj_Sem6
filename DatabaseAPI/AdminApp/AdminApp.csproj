@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="ClientManager.cs" />
     <Compile Include="DatabaseManager.cs" />
+    <Compile Include="EnumCaster.cs" />
     <Compile Include="Models\Cashier.cs" />
     <Compile Include="Models\Discount.cs" />
     <Compile Include="Models\DiscountSetItem.cs" />

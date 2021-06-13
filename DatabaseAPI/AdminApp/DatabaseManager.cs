@@ -93,13 +93,14 @@ namespace AdminApp
             }
         }
 
-        public bool UpdateCashier(Guid guid, string name, double? bilans)
+        public bool UpdateCashier(Guid guid, string name, double bilans)
         {
             var cashier = GetCashier(guid);
             if(name != "")
             {
                 cashier.FullName = name;
             }
+            cashier.Bilans = bilans;
             var request = new RestRequest("api/crud/Cashier");
             string jsonBody = JsonConvert.SerializeObject(cashier);
             request.AddHeader("sessionId", SessionId);
@@ -225,9 +226,22 @@ namespace AdminApp
             }
         }
 
-        public bool UpdateDiscount(Guid guid, bool isAvailable, double? setPrice, double? priceDropAmount, double? priceDropPercent)
+        public bool UpdateDiscount(Guid guid, bool isAvailable, double setPrice, double priceDropAmount, double priceDropPercent)
         {
             var discount = GetDiscount(guid);
+            discount.IsAvailable = isAvailable;
+            if(setPrice != -1.0)
+            {
+                discount.SetPrice = setPrice;
+            }
+            if (priceDropAmount != -1.0)
+            {
+                discount.PriceDropAmount = priceDropAmount;
+            }
+            if (priceDropPercent != -1.0)
+            {
+                discount.PriceDropPercent = priceDropPercent;
+            }
             var request = new RestRequest("api/crud/Discount");
             string jsonBody = JsonConvert.SerializeObject(discount);
             request.AddHeader("sessionId", SessionId);
@@ -335,7 +349,7 @@ namespace AdminApp
 
         public IEnumerable<DiscountSetItem> GetDiscountSetItems()
         {
-            var request = new RestRequest("/api/crud/DiscountSetItem");
+            var request = new RestRequest("api/crud/DiscountSetItem");
             request.AddHeader("sessionId", SessionId);
             var response = Client.Get(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
@@ -358,6 +372,10 @@ namespace AdminApp
         public bool UpdateDiscountSetItem(Guid discountId, Guid productId, int quantity)
         {
             var discountSetItem = GetDiscountSetItem(discountId, productId);
+            if(quantity != -1)
+            {
+                discountSetItem.Quantity = quantity;
+            }
             var request = new RestRequest("api/crud/DiscountSetItem");
             string jsonBody = JsonConvert.SerializeObject(discountSetItem);
             request.AddHeader("sessionId", SessionId);
@@ -389,6 +407,150 @@ namespace AdminApp
             };
             string jsonBody = JsonConvert.SerializeObject(discountSetItem);
             var request = new RestRequest("api/crud/DiscountSetItem");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Delete(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool AddOrder(Guid cashierId, OrderStatus status, double price, int ticketNumber)
+        {
+            var order = new Order()
+            {
+                Id = Guid.NewGuid(),
+                CashierId = cashierId,
+                Status = EnumCaster.OrderStatusToNumber(status),
+                CreatedAt = DateTime.Now,
+                Price = price,
+                TicketNumber = ticketNumber
+            };
+            var request = new RestRequest("api/crud/Orders");
+            string jsonBody = JsonConvert.SerializeObject(order);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Post(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public Order GetOrder(Guid guid)
+        {
+            var request = new RestRequest("api/crud/Orders/{guid}").AddUrlSegment("guid", guid);
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var order = JsonConvert.DeserializeObject<Order>(response.Content);
+                return order;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            var request = new RestRequest("api/crud/Orders");
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var orders = JsonConvert.DeserializeObject<List<Order>>(response.Content);
+                return orders;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public bool UpdateOrder(Guid guid, Guid cashierId, int status, double price, int ticketNumber)
+        {
+            var order = GetOrder(guid);
+            if(status != -1)
+            {
+                order.Status = status;
+            }
+            if(price != -1)
+            {
+                order.Price = price;
+            }
+            if(ticketNumber != -1)
+            {
+                order.TicketNumber = ticketNumber;
+            }
+            var request = new RestRequest("api/crud/Orders");
+            string jsonBody = JsonConvert.SerializeObject(order);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Put(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool DeleteOrder(Guid guid)
+        {
+            var order = new Order()
+            {
+                Id = guid,
+                CashierId = Guid.NewGuid(),
+                Status = 1,
+                CreatedAt = DateTime.Now,
+                Price = 1.0,
+                TicketNumber = 1
+            };
+            string jsonBody = JsonConvert.SerializeObject(order);
+            var request = new RestRequest("api/crud/Orders");
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
             var response = Client.Delete(request);
