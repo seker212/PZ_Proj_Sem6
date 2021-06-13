@@ -24,11 +24,11 @@ namespace DatabaseAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Post([FromHeader] string sessionId, [FromBody] DatabaseModels.OrderItems orderItems)
+        public async Task<IActionResult> Post([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.OrderItems orderItems)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Create(orderItems);
+                var result = await _services.Create(new OrderItems(orderItems.OrderId, orderItems.ProductId, orderItems.Quantity, orderItems.Price));
                 return Ok(result);
             }
             else
@@ -75,11 +75,11 @@ namespace DatabaseAPI.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Update([FromHeader] string sessionId, [FromBody] DatabaseModels.OrderItems orderItems)
+        public async Task<IActionResult> Update([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.OrderItems orderItems)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Update(orderItems);
+                var result = await _services.Update(new OrderItems(orderItems.OrderId, orderItems.ProductId, orderItems.Quantity, orderItems.Price));
                 return Ok(result);
             }
             else
@@ -92,7 +92,7 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete([FromHeader] string sessionId, [FromBody] DatabaseModels.OrderItems orderItems)
+        public async Task<IActionResult> Delete([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.OrderItems orderItems)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
