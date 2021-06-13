@@ -29,7 +29,7 @@ namespace DatabaseAPI.Services
                             x.SetPrice,
                             x.PriceDropAmmount, 
                             x.PriceDropPercent,
-                            x.SetPrice is null ? null : _productRepository
+                            _productRepository
                                 .GetDiscountProducts(x)
                                 .Select(y => 
                                     new ApiModels.Product(

@@ -57,6 +57,7 @@ CREATE TABLE order_discount
 (
     order_id    uuid,
     discount_id uuid,
+    quantity INT NOT NULL,
     PRIMARY KEY (order_id, discount_id),
     FOREIGN KEY (order_id) REFERENCES orders (id),
     FOREIGN KEY (discount_id) REFERENCES discounts (id)

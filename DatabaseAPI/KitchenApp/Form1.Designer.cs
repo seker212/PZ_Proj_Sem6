@@ -52,6 +52,7 @@ namespace KitchenApp
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBox1.ItemHeight = 16;
             this.listBox1.Items.AddRange(new object[] {
             "Zamówienie 1",
@@ -67,6 +68,7 @@ namespace KitchenApp
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
+            this.listBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBox2.ItemHeight = 16;
             this.listBox2.Items.AddRange(new object[] {
             "Zamówienie 2",
@@ -81,6 +83,7 @@ namespace KitchenApp
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
+            this.listBox3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBox3.ItemHeight = 16;
             this.listBox3.Items.AddRange(new object[] {
             "Zamówienie 3",
@@ -94,32 +97,38 @@ namespace KitchenApp
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.LightGreen;
             this.button1.Location = new System.Drawing.Point(61, 429);
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(175, 66);
             this.button1.TabIndex = 4;
             this.button1.Text = "Wykonano";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.Color.LightGreen;
             this.button2.Location = new System.Drawing.Point(345, 429);
+            this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(175, 66);
             this.button2.TabIndex = 5;
             this.button2.Text = "Wykonano";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.LightGreen;
             this.button3.Location = new System.Drawing.Point(612, 429);
+            this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(175, 66);
             this.button3.TabIndex = 6;
             this.button3.Text = "Wykonano";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
