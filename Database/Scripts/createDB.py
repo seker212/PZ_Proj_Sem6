@@ -179,8 +179,13 @@ sqlUsers = '''
 SELECT * FROM users;
 '''
 
-sqlProducts = '''
-SELECT * FROM products;
+sqlprint = '''
+SELECT * FROM orders;
+'''
+
+sqladd = '''
+INSERT INTO discounts VALUES
+    ('00000000-0000-0000-0000-00000000000b', TRUE, 4.2, NULL, NULL)
 '''
 #------------------------------------------------------
 #Creating a database
@@ -193,10 +198,10 @@ SELECT * FROM products;
 #cursor.execute(sqlInsertUser)
 #------------------------------------------------------
 
-cursor.execute(sqlHideProducts)
+#cursor.execute(sqladd)
 
-print('\n'+sqlProducts)
-cursor.execute(sqlProducts)
+print('\n'+sqlprint)
+cursor.execute(sqlprint)
 rows = cursor.fetchall()
 for row in rows:
     print(row)
