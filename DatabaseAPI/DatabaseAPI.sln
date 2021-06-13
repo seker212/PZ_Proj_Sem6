@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KitchenApp", "KitchenApp\Ki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POSApp", "POS\POSApp.csproj", "{1E6AB946-C397-49BD-A197-C888461590E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceApp", "ServiceApp\ServiceApp.csproj", "{4D3988DB-36FC-4EB6-9AAA-A9395357A3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1E6AB946-C397-49BD-A197-C888461590E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E6AB946-C397-49BD-A197-C888461590E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E6AB946-C397-49BD-A197-C888461590E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3988DB-36FC-4EB6-9AAA-A9395357A3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3988DB-36FC-4EB6-9AAA-A9395357A3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3988DB-36FC-4EB6-9AAA-A9395357A3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3988DB-36FC-4EB6-9AAA-A9395357A3A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
