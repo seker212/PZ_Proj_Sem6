@@ -9,7 +9,7 @@ using DatabaseAPI.Services;
 
 namespace DatabaseAPI.Controllers
 {
-    [Route("/api/crud/Protuct")]
+    [Route("/api/crud/Product")]
     [ApiController]
     public class CrudProductController : ControllerBase
     {
