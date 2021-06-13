@@ -53,7 +53,7 @@ namespace DatabaseAPI.Controllers
             }
         }
 
-        [HttpGet("{guid}")]
+        [HttpGet("instance")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
