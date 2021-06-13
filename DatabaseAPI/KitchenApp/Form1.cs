@@ -100,7 +100,7 @@ namespace KitchenApp
                 produkty3 = orders.ElementAt(2).products;
                 for (int i = 0; i < produkty3.Count(); i++)
                 {
-                    listBox1.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
+                    listBox3.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
                 }
                 orderBox3_Id = orders.ElementAt(2).id;
             } catch (ArgumentOutOfRangeException e)
@@ -117,7 +117,7 @@ namespace KitchenApp
 
         }
 
-        public void RefreshList(object source, ElapsedEventArgs e)
+        public void RefreshList(object source, ElapsedEventArgs e) //object source, ElapsedEventArgs e
         {
             var client = new RestClient("https://localhost:44328/");
             var request = new RestRequest("api/Orders/kitchen", DataFormat.Json);
@@ -130,59 +130,102 @@ namespace KitchenApp
 
             try
             {
-                listBox1.Items.Clear();
-                listBox1.Items.Add("Nr zamówienia: " + orders.ElementAt(0).ticketNumber + "\n\r");
-                produkty1 = orders.ElementAt(0).products;
-                for (int i = 0; i < produkty1.Count(); i++)
+                listBox1.Invoke(new Action(() => listBox1.Items.Clear()));
+                listBox1.Invoke(new Action(() =>
                 {
-                    listBox1.Items.Add(produkty1[i].name + " x" + produkty1[i].count);
-                }
-                orderBox1_Id = orders.ElementAt(0).id;
-                button1.Text = "Wykonano";
+                    try
+                    {
+                        listBox1.Items.Add("Nr zamówienia: " + orders.ElementAt(0).ticketNumber + "\n\r");
+                        produkty1 = orders.ElementAt(0).products;
+                        for (int i = 0; i < produkty1.Count(); i++)
+                        {
+                            listBox1.Items.Add(produkty1[i].name + " x" + produkty1[i].count);
+                        }
+                        orderBox1_Id = orders.ElementAt(0).id;
+                        button1.Invoke(new Action(() => button1.Text = "Wykonano"));
+                    }
+                    catch (ArgumentOutOfRangeException f)
+                    {
+                        listBox1.Items.Add("Brak zamówień");
+                        button1.Invoke(new Action(() => button1.Text = "Brak zamówienia"));
+                    }
+                }));
             }
             catch (ArgumentOutOfRangeException f)
             {
-                listBox1.Items.Add("Brak zamówień");
-                button1.Text = "Brak zamówienia";
+                listBox1.Invoke(new Action(() => listBox1.Items.Add("Brak zamówień")));
+                button1.Invoke(new Action(() => button1.Text = "Brak zamówienia"));
             }
+            //catch (InvalidOperationException g)
+            //{
+
+            //}
+            
 
 
             try
             {
-                listBox2.Items.Clear();
-                listBox2.Items.Add("Nr zamówienia: " + orders.ElementAt(1).ticketNumber + "\n\r");
-                produkty2 = orders.ElementAt(1).products;
-                for (int i = 0; i < produkty2.Count(); i++)
-                {
-                    listBox2.Items.Add(produkty2[i].name + " x" + produkty2[i].count);
-                }
-                orderBox2_Id = orders.ElementAt(1).id;
-                button2.Text = "Wykonano";
+                listBox2.Invoke(new Action(() => listBox2.Items.Clear()));
+                listBox2.Invoke(new Action(() => {
+                    try {
+                        listBox2.Items.Add("Nr zamówienia: " + orders.ElementAt(1).ticketNumber + "\n\r");
+                        produkty2 = orders.ElementAt(1).products;
+                        for (int i = 0; i < produkty2.Count(); i++)
+                        {
+                            listBox2.Items.Add(produkty2[i].name + " x" + produkty2[i].count);
+                        }
+                        orderBox2_Id = orders.ElementAt(1).id;
+                        button2.Invoke(new Action(() => button2.Text = "Wykonano"));
+                    }
+                    catch (ArgumentOutOfRangeException f)
+                    {
+                        listBox2.Items.Add("Brak zamówień");
+                        button2.Invoke(new Action(() => button2.Text = "Brak zamówienia"));
+                    }
+                } ));
             }
             catch (ArgumentOutOfRangeException f)
             {
-                listBox2.Items.Add("Brak zamówień");
-                button2.Text = "Brak zamówienia";
+                listBox2.Invoke(new Action(() => listBox2.Items.Add("Brak zamówień")));
+                button2.Invoke(new Action(() => button2.Text = "Brak zamówienia"));
             }
+            //catch (InvalidOperationException g)
+            //{
+
+            //}
 
 
             try
             {
-                listBox3.Items.Clear();
-                listBox3.Items.Add("Nr zamówienia: " + orders.ElementAt(2).ticketNumber + "\n\r");
-                produkty3 = orders.ElementAt(2).products;
-                for (int i = 0; i < produkty3.Count(); i++)
-                {
-                    listBox1.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
-                }
-                orderBox3_Id = orders.ElementAt(2).id;
-                button3.Text = "Wykonano";
+                listBox3.Invoke(new Action(() => listBox3.Items.Clear()));
+                listBox3.Invoke(new Action(() => {
+                    try
+                    {
+                        listBox3.Items.Add("Nr zamówienia: " + orders.ElementAt(2).ticketNumber + "\n\r");
+                        produkty3 = orders.ElementAt(2).products;
+                        for (int i = 0; i < produkty3.Count(); i++)
+                        {
+                            listBox3.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
+                        }
+                        orderBox3_Id = orders.ElementAt(2).id;
+                        button3.Invoke(new Action(() => button3.Text = "Wykonano"));
+                    }
+                    catch (ArgumentOutOfRangeException f)
+                    {
+                        listBox3.Items.Add("Brak zamówień");
+                        button3.Invoke(new Action(() => button3.Text = "Brak zamówienia"));
+                    } 
+                } ));
             }
             catch (ArgumentOutOfRangeException f)
             {
-                listBox3.Items.Add("Brak zamówień");
-                button3.Text = "Brak zamówienia";
+                listBox3.Invoke(new Action(() => listBox3.Items.Add("Brak zamówień")));
+                button3.Invoke(new Action(() => button3.Text = "Brak zamówienia"));
             }
+            //catch (InvalidOperationException g)
+            //{
+
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -247,7 +290,7 @@ namespace KitchenApp
                 produkty3 = orders.ElementAt(2).products;
                 for (int i = 0; i < produkty3.Count(); i++)
                 {
-                    listBox1.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
+                    listBox3.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
                 }
                 orderBox3_Id = orders.ElementAt(2).id;
                 button3.Text = "Wykonano";
@@ -325,7 +368,7 @@ namespace KitchenApp
                 produkty3 = orders.ElementAt(2).products;
                 for (int i = 0; i < produkty3.Count(); i++)
                 {
-                    listBox1.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
+                    listBox3.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
                 }
                 orderBox3_Id = orders.ElementAt(2).id;
                 button3.Text = "Wykonano";
@@ -404,7 +447,7 @@ namespace KitchenApp
                 produkty3 = orders.ElementAt(2).products;
                 for (int i = 0; i < produkty3.Count(); i++)
                 {
-                    listBox1.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
+                    listBox3.Items.Add(produkty3[i].name + " x" + produkty3[i].count);
                 }
                 orderBox3_Id = orders.ElementAt(2).id;
                 button3.Text = "Wykonano";
