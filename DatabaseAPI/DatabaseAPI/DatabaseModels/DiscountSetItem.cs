@@ -20,6 +20,6 @@ namespace DatabaseAPI.DatabaseModels
         public int Quantity { get; }
 
         public object[] Data => new object[] { DiscountId, ProductId };
-        public static string[] ColumnNames => new string[] { "id", "product_id", "quantity" };
+        public static string[] ColumnNames => new string[] { "discount_id", "product_id", "quantity" };
     }
 }

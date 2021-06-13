@@ -23,7 +23,7 @@ namespace AdminApp.Models
     {
         public Guid Id { get; set; }
         public Guid CashierId { get; set; }
-        public OrderStatus Status { get; set; }
+        public int Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public double Price { get; set; }
         public int TicketNumber { get; set; }
