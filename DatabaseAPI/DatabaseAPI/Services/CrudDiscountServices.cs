@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DatabaseAPI.Services
 {
-    public interface IDiscountCrudServices : ICrudServices<Discount>
+    public interface ICrudDiscountServices : ICrudServices<Discount>
     {
         public Task<Discount?> Read(Guid id);
     }
 
-    public class DiscountCrudServices : CrudServices<Discount>, IDiscountCrudServices
+    public class CrudDiscountServices : CrudServices<Discount>, ICrudDiscountServices
     {
-        public DiscountCrudServices(IDiscountRepository repository) : base(repository)
+        public CrudDiscountServices(IDiscountRepository repository) : base(repository)
         {
         }
 

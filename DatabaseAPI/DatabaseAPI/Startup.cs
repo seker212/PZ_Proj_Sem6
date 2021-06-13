@@ -51,7 +51,10 @@ namespace DatabaseAPI
             services.AddScoped<IOrderDiscountRepository>(x => new OrderDiscountRepository(ConnectionString));
             services.AddScoped<IPairRepository<DatabaseModels.OrderItems>>(x => new PairRepository<DatabaseModels.OrderItems>(ConnectionString, "order_items", DatabaseModels.OrderItems.ColumnNames));
 
-            services.AddScoped<IDiscountCrudServices, DiscountCrudServices>();
+            services.AddScoped<ICrudCashierServices, CrudCashierServices>();
+            services.AddScoped<ICrudProductServices, CrudProductServices>();
+            services.AddScoped<ICrudOrderServices, CrudOrderServices>();
+            services.AddScoped<ICrudDiscountServices, CrudDiscountServices>();
             services.AddScoped<IOrderServices, OrderServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IDiscountServices, DiscountServices>();
