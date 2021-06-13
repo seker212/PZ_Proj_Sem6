@@ -143,18 +143,18 @@ DELETE FROM order_discount WHERE order_id = '4e742ab7-eac8-4f5b-a6cb-c8418a96875
 DELETE FROM orders WHERE Id = '4e742ab7-eac8-4f5b-a6cb-c8418a96875c';
 '''
 
-sqlElo = ''' CREATE DATABASE mydatabase '''
+sqlCreate = ''' CREATE DATABASE mydatabase '''
 sqlList = '''SELECT datname FROM pg_database;'''
 
 sqlnewInsert = '''
-INSERT INTO discounts VALUES
-    ('00000000-0000-0000-0000-000000000009', TRUE, 1.00, NULL, NULL),
-    ('00000000-0000-0000-0000-00000000000A', TRUE, NULL, 2.50, NULL);
-INSERT INTO discounts_set_items VALUES
-    ('00000000-0000-0000-0000-000000000009', '00000000-0000-0000-0000-000000000001', 1),
-    ('00000000-0000-0000-0000-00000000000A', '00000000-0000-0000-0000-000000000002', 2);
+INSERT INTO products VALUES
+    ('00000000-0000-0000-0000-000000000005', 'Frytki małe', 4.99, 'Available'),
+    ('00000000-0000-0000-0000-000000000006', 'Frytki duże', 7.99, 'Available');
 '''
-
+sqlInsertUser = '''
+INSERT INTO users VALUES
+    ('4bf46fb2-cc48-11eb-b8bc-0242ac130003', 'Admin2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Admin');
+'''
 #------------------------------------------------------
 #Creating a database
 
@@ -176,8 +176,8 @@ rows = cursor.fetchall()
 for row in rows:
     print(row)
 
-print('\n'+sql4)
-cursor.execute(sql4)
+print('\n'+sqlnewInsert)
+cursor.execute(sqlnewInsert)
 rows = cursor.fetchall()
 for row in rows:
     print(row)
