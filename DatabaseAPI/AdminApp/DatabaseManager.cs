@@ -845,11 +845,11 @@ namespace AdminApp
             }
         }
 
-        public bool AddProduct(Guid id, string name, double price, int status)
+        public bool AddProduct(string name, double price, int status)
         {
             var product = new Product()
             {
-                Id = id,
+                Id = Guid.NewGuid(),
                 Name = name,
                 Price = price,
                 Status = status

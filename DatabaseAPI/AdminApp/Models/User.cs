@@ -15,6 +15,6 @@ namespace AdminApp.Models
         public Guid Id { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
-        public UserType Type { get; set; }
+        public int Type { get; set; }
     }
 }
