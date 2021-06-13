@@ -676,16 +676,156 @@ namespace AdminApp
             }
         }
 
-        public bool DeleteOrderDiscount(Guid orderId)
+        public bool DeleteOrderDiscount(Guid orderId, Guid discountId)
         {
             var orderDiscount = new OrderDiscount()
             {
                 OrderId = orderId,
-                DiscountId = Guid.NewGuid(),
+                DiscountId = discountId,
                 Quantity = 1
             };
             string jsonBody = JsonConvert.SerializeObject(orderDiscount);
             var request = new RestRequest("api/crud/OrderDiscount");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Delete(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool AddOrderItem(Guid orderId, Guid productId, int quantity, double price)
+        {
+            var orderItem = new OrderItems()
+            {
+                OrderId = orderId,
+                ProductId = productId,
+                Quantity = quantity,
+                Price = price
+            };
+            var request = new RestRequest("api/crud/OrderItems");
+            string jsonBody = JsonConvert.SerializeObject(orderItem);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Post(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public OrderItems GetOrderItem(Guid orderId, Guid productId)
+        {
+            var request = new RestRequest("api/crud/OrderItems/instance");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("orderId", orderId);
+            request.AddParameter("productId", productId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var orderItem = JsonConvert.DeserializeObject<OrderItems>(response.Content);
+                return orderItem;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public IEnumerable<OrderItems> GetOrderItems()
+        {
+            var request = new RestRequest("api/crud/OrderItems");
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var ordersItems = JsonConvert.DeserializeObject<List<OrderItems>>(response.Content);
+                return ordersItems;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public bool UpdateOrderItem(Guid orderId, Guid productId, int quantity, double price)
+        {
+            var orderItem = GetOrderItem(orderId, productId);
+            orderItem.OrderId = orderId;
+            orderItem.ProductId = productId;
+            if (quantity != -1)
+            {
+                orderItem.Quantity = quantity;
+            }
+            if(price != -1.0)
+            {
+                orderItem.Price = price;
+            }
+            var request = new RestRequest("api/crud/OrderItems");
+            string jsonBody = JsonConvert.SerializeObject(orderItem);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Put(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool DeleteOrderItem(Guid orderId, Guid productId)
+        {
+            var orderItem = new OrderItems()
+            {
+                OrderId = orderId,
+                ProductId = productId,
+                Quantity = 1,
+                Price = 1.0
+            };
+            string jsonBody = JsonConvert.SerializeObject(orderItem);
+            var request = new RestRequest("api/crud/OrderItems");
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
             var response = Client.Delete(request);
