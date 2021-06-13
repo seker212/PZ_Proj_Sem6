@@ -15,10 +15,12 @@ namespace AdminApp
     {
         static void Main(string[] args)
         {
-            ClientManager cm = new ClientManager();
-            //cm.LoginAdmin();
-            cm.test();
-            Console.WriteLine(cm.sessionId);
+            RestClient client = new RestClient("https://localhost:44328/");
+            ClientManager cm = new ClientManager(client);
+            cm.LoginAdmin();
+            DatabaseManager dm = new DatabaseManager(client, cm.SessionId);
+
+
         }
     }
 }
