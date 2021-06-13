@@ -115,9 +115,8 @@
             this.Test.AutoSize = true;
             this.Test.Location = new System.Drawing.Point(771, 428);
             this.Test.Name = "Test";
-            this.Test.Size = new System.Drawing.Size(28, 13);
+            this.Test.Size = new System.Drawing.Size(0, 13);
             this.Test.TabIndex = 4;
-            this.Test.Text = "Test";
             this.Test.Click += new System.EventHandler(this.Test_Click);
             // 
             // SumTextBox

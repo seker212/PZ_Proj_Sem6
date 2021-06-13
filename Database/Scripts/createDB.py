@@ -132,7 +132,7 @@ INSERT INTO orders VALUES
 
 #establishing the connection
 conn = psycopg2.connect(
-   database="postgres", user='postgres', password='mysecretpassword', host='127.0.0.1', port= '5432'
+   database="mydatabase", user='postgres', password='mysecretpassword', host='127.0.0.1', port= '5432'
 )
 conn.autocommit = True
 
@@ -159,6 +159,18 @@ INSERT INTO products VALUES
     ('00000000-0000-0000-0000-000000000005', 'Frytki małe', 4.99, 'Available'),
     ('00000000-0000-0000-0000-000000000006', 'Frytki duże', 7.99, 'Available');
 '''
+sqlInsertProducts = '''
+INSERT INTO products VALUES
+    ('00000000-0000-0000-0000-000000000007', 'Hamburger', 6.99, 'Available'),
+    ('00000000-0000-0000-0000-000000000008', 'Cheeseburger', 7.99, 'Available'),
+    ('00000000-0000-0000-0000-000000000009', 'Vegeburger', 7.49, 'Available'),
+    ('00000000-0000-0000-0000-00000000000A', 'Nuggetsy', 7.99, 'Available'),
+    ('00000000-0000-0000-0000-00000000000B', 'Coca-cola', 4.99, 'Available'),
+    ('00000000-0000-0000-0000-00000000000C', 'Fanta', 4.99, 'Available');
+'''
+sqlHideProducts = '''
+UPDATE products SET status = 'Withdrawn' WHERE id = '00000000-0000-0000-0000-000000000002';
+'''
 sqlInsertUser = '''
 INSERT INTO users VALUES
     ('4bf46fb2-cc48-11eb-b8bc-0242ac130003', 'Admin2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Admin');
@@ -166,35 +178,25 @@ INSERT INTO users VALUES
 sqlUsers = '''
 SELECT * FROM users;
 '''
+
+sqlProducts = '''
+SELECT * FROM products;
+'''
 #------------------------------------------------------
 #Creating a database
 #cursor.execute(sqlnewInsert)
-cursor.execute(sql1)
-cursor.execute(sql2)
-#cursor.execute(sq23)
-cursor.execute(sql4)
-cursor.execute(sqlUsers)
+# cursor.execute(sql1)
+# cursor.execute(sql2)
+# #cursor.execute(sq23)
+# cursor.execute(sql4)
+# cursor.execute(sqlUsers)
 #cursor.execute(sqlInsertUser)
 #------------------------------------------------------
 
-rows = cursor.fetchall()
-for row in rows:
-    print(row)
+cursor.execute(sqlHideProducts)
 
-print('\n'+sql2)
-cursor.execute(sql2)
-rows = cursor.fetchall()
-for row in rows:
-    print(row)
-
-print('\n'+sql3)
-cursor.execute(sql3)
-rows = cursor.fetchall()
-for row in rows:
-    print(row)
-
-print('\n'+sqlUsers)
-cursor.execute(sqlUsers)
+print('\n'+sqlProducts)
+cursor.execute(sqlProducts)
 rows = cursor.fetchall()
 for row in rows:
     print(row)
