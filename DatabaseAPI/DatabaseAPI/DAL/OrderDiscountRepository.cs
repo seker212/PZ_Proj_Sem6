@@ -9,7 +9,7 @@ namespace DatabaseAPI.DAL
 {
     public class OrderDiscountRepository : PairRepository<OrderDiscount>, IOrderDiscountRepository
     {
-        public OrderDiscountRepository(string connectionString) : base(connectionString, "order_discounts", OrderDiscount.ColumnNames)
+        public OrderDiscountRepository(string connectionString) : base(connectionString, "order_discount", OrderDiscount.ColumnNames)
         {
         }
 

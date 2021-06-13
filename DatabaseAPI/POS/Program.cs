@@ -13,7 +13,8 @@ namespace POSApp {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            while (true)
+                Application.Run(new Form1());
         }
     }
 }
