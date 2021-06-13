@@ -15,7 +15,9 @@ namespace AdminApp
     {
         static void Main(string[] args)
         {
-            
+            ClientManager cm = new ClientManager();
+            cm.LoginAdmin();
+            Console.WriteLine(cm.sessionId);
         }
     }
 }

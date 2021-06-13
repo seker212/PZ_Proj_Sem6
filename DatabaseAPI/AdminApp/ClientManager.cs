@@ -14,6 +14,8 @@ namespace AdminApp
     {
         public UserType type;
         public RestClient client;
+        public string sessionId;
+
         public ClientManager()
         {
             client = new RestClient("https://localhost:44328/");
@@ -38,7 +40,7 @@ namespace AdminApp
             string password = null;
             Login(ref name, ref password);
 
-            var request = new RestRequest("api/login/manager");
+            var request = new RestRequest("api/User/login/manager");
             request.AddParameter("username", name);
             request.AddParameter("password", password);
             request.RequestFormat = DataFormat.Json;
@@ -46,6 +48,7 @@ namespace AdminApp
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 type = UserType.Manager;
+                sessionId = response.Content;
                 return true;
             }
             else
@@ -60,7 +63,7 @@ namespace AdminApp
             string password = null;
             Login(ref name, ref password);
 
-            var request = new RestRequest("api/login/manager");
+            var request = new RestRequest("api/User/login/admin");
             request.AddParameter("username", name);
             request.AddParameter("password", password);
             request.RequestFormat = DataFormat.Json;
@@ -68,6 +71,7 @@ namespace AdminApp
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 type = UserType.Admin;
+                sessionId = response.Content;
                 return true;
             }
             else

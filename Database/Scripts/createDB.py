@@ -1,6 +1,6 @@
 import psycopg2
 
-sql1 = """
+sql80 = """
 CREATE TABLE cashiers
 (
     id        uuid,
@@ -84,7 +84,7 @@ CREATE TABLE users(
 )
 """
 
-sql2 = """
+sql90 = """
 INSERT INTO products VALUES
     ('00000000-0000-0000-0000-000000000001', 'MockBurger1', 1.99, 'Available'),
     ('00000000-0000-0000-0000-000000000002', 'MockBurger2', 4.99, 'Available'),
@@ -122,7 +122,7 @@ INSERT INTO users VALUES
     ('FA684D6E-D2C6-481D-8617-9EA5963230C4', 'Manager1', '9b50bb25814ff13d1a38c5ec2393bceb', 'Manager');
 """
 
-sq23 = """
+sq65965465 = """
 INSERT INTO orders VALUES
     ('00000000-0000-0000-0000-000000000079', '00000000-0000-0000-0000-000000000007', 'Preparing', '2018-02-09 04:05:06', 10.99, 75),
     ('00000000-0000-0000-0000-00000000005A', '00000000-0000-0000-0000-000000000007', 'Preparing', '2018-03-09 13:15:56', 8.98, 23),
@@ -140,6 +140,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 #Preparing query to create a database
+
 sql1 = '''SELECT * FROM orders; '''
 sql2 = '''SELECT * FROM order_items; '''
 sql3 = '''SELECT * FROM order_discount; '''
@@ -162,13 +163,18 @@ sqlInsertUser = '''
 INSERT INTO users VALUES
     ('4bf46fb2-cc48-11eb-b8bc-0242ac130003', 'Admin2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Admin');
 '''
+sqlUsers = '''
+SELECT * FROM users;
+'''
 #------------------------------------------------------
 #Creating a database
-#cursor.execute(sql0)
-#cursor.execute(sql1)
-#cursor.execute(sql2)
+#cursor.execute(sqlnewInsert)
+cursor.execute(sql1)
+cursor.execute(sql2)
 #cursor.execute(sq23)
-#cursor.execute(sql)
+cursor.execute(sql4)
+cursor.execute(sqlUsers)
+#cursor.execute(sqlInsertUser)
 #------------------------------------------------------
 
 rows = cursor.fetchall()
@@ -187,11 +193,17 @@ rows = cursor.fetchall()
 for row in rows:
     print(row)
 
-print('\n'+sqlnewInsert)
-cursor.execute(sqlnewInsert)
+print('\n'+sqlUsers)
+cursor.execute(sqlUsers)
 rows = cursor.fetchall()
 for row in rows:
     print(row)
+
+# print('\n'+sqlnewInsert)
+# cursor.execute(sqlnewInsert)
+# rows = cursor.fetchall()
+# for row in rows:
+#     print(row)
 
 
 print("Database created successfully........")
