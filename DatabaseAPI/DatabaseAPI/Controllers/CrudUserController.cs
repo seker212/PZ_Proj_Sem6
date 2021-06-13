@@ -23,11 +23,11 @@ namespace DatabaseAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> PostDiscount([FromHeader] string sessionId, [FromBody] DatabaseModels.User user)
+        public async Task<IActionResult> PostDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.PostUser(user);
+                var result = await _services.PostUser(new DatabaseModels.User(user.Id, user.Username, user.PasswordHash, user.Type));
                 return Ok(result);
             }
             else
@@ -74,11 +74,11 @@ namespace DatabaseAPI.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateDiscount([FromHeader] string sessionId, [FromBody] DatabaseModels.User user)
+        public async Task<IActionResult> UpdateDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.UpdateUser(user);
+                var result = await _services.UpdateUser(new DatabaseModels.User(user.Id, user.Username, user.PasswordHash, user.Type));
                 return Ok(result);
             }
             else
