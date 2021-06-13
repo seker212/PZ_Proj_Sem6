@@ -14,11 +14,11 @@ namespace DatabaseAPI.Services
         private IDiscountRepository _discountRepository;
         private IPairRepository<DatabaseModels.OrderItems> _orderItemsRepository;
         private IOrderDiscountRepository _orderDiscountRepository;
-        private IObjectRepository<DatabaseModels.Cashier> _cashierRepository;
+        private ICashierRepository _cashierRepository;
         private static int ticketNumber = 1;
         private readonly object ticketNumberLock;
 
-        public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository, IDiscountRepository discountRepository, IPairRepository<DatabaseModels.OrderItems> orderItemsRepository, IOrderDiscountRepository orderDiscountRepository, IObjectRepository<DatabaseModels.Cashier> cashierRepository)
+        public OrderServices(IOrderRepository orderRepository, IProductRepository productRepository, IDiscountRepository discountRepository, IPairRepository<DatabaseModels.OrderItems> orderItemsRepository, IOrderDiscountRepository orderDiscountRepository, ICashierRepository cashierRepository)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
