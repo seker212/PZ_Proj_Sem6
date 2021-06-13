@@ -12,13 +12,13 @@ namespace AdminApp
 {
     public class ClientManager
     {
-        public UserType type;
-        public RestClient client;
-        public string sessionId;
+        public UserType Type { get; set; }
+        public RestClient Client { get; set; }
+        public string SessionId { get; set; }
 
-        public ClientManager()
+        public ClientManager(RestClient client)
         {
-            client = new RestClient("https://localhost:44328/");
+            Client = client;
         }
 
         void Login(ref string name, ref string password)
@@ -43,12 +43,11 @@ namespace AdminApp
             var request = new RestRequest("api/User/login/manager");
             request.AddParameter("username", name);
             request.AddParameter("password", password);
-            request.RequestFormat = DataFormat.Json;
-            var response= client.Get(request);
+            var response= Client.Get(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                type = UserType.Manager;
-                sessionId = response.Content;
+                Type = UserType.Manager;
+                SessionId = response.Content.Trim('"');
                 return true;
             }
             else
@@ -66,25 +65,17 @@ namespace AdminApp
             var request = new RestRequest("api/User/login/admin");
             request.AddParameter("username", name);
             request.AddParameter("password", password);
-            //request.RequestFormat = DataFormat.Json;
-            var response = client.Get(request);
+            var response = Client.Get(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                type = UserType.Admin;
-                sessionId = response.Content;
+                Type = UserType.Admin;
+                SessionId = response.Content.Trim('"');
                 return true;
             }
             else
             {
                 return false;
             }
-        }
-
-        public void test()
-        {
-            var request = new RestRequest("api/Product/available", DataFormat.Json);
-            var response = client.Get(request);
-            //var products = JsonConvert.DeserializeObject<List<ProductData>>(response.Content);
         }
     }
 }

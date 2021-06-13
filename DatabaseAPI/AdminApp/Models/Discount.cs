@@ -9,8 +9,8 @@ namespace AdminApp.Models
     {
         public Guid Id { get; set; }
         public bool IsAvailable { get; set; }
-        public double? SetPrice { get; }
-        public double? PriceDropAmmount { get; set; }
+        public double? SetPrice { get; set; }
+        public double? PriceDropAmount { get; set; }
         public double? PriceDropPercent { get; set; }
     }
 }

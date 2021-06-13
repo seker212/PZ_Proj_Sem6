@@ -24,5 +24,7 @@ namespace DatabaseAPI.DAL
         }
 
         public override T Update(T entity) => Query().Where(_columnNames[0], entity.Data[0]).Where(_columnNames[1], entity.Data[1]).Update(GenerateDataDictionary(entity, 2)) == 1 ? entity : throw new Exception(); //TODO: Use more descriptive exception
+        public override bool Delete(T entity) => Query().Where(_columnNames[0], entity.Data[0]).Where(_columnNames[1], entity.Data[1]).Delete() == 1 ? true : throw new Exception();
+        public bool Delete(Guid primaryKey1, Guid primaryKey2) => Query().Where(_columnNames[0], primaryKey1).Where(_columnNames[1], primaryKey2).Delete() == 1 ? true : throw new Exception();
     }
 }

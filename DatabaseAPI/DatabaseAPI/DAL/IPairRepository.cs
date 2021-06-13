@@ -8,5 +8,6 @@ namespace DatabaseAPI.DAL
     {
         T Get(Guid primaryKey1, Guid primaryKey2);
         T Get(IEnumerable<Guid> primaryKeys);
+        public bool Delete(Guid primaryKey1, Guid primaryKey2);
     }
 }
