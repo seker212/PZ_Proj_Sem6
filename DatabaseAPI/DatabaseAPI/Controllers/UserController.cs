@@ -44,7 +44,7 @@ namespace DatabaseAPI.Controllers
         [HttpGet("login/admin")]
         public async Task<IActionResult> LoginAdmin([FromQuery] string username, [FromQuery] string password)
         {
-            var result = await _userServices.LogIn(username, password, DatabaseModels.UserType.Manager);
+            var result = await _userServices.LogIn(username, password, DatabaseModels.UserType.Admin);
             if (result is null)
                 return NotFound();
             else

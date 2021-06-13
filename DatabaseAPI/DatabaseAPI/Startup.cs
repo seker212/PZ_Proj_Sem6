@@ -38,7 +38,11 @@ namespace DatabaseAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatabaseAPI", Version = "v1" });
             });
-            
+            services.AddSwaggerGen(options =>
+            {
+                options.CustomSchemaIds(type => type.ToString());
+            });
+
             services.AddScoped<IUserRepository>(x => new UserRepository(ConnectionString));
             services.AddScoped<IOrderRepository>(x => new OrderRepository(ConnectionString));
             services.AddScoped<ICashierRepository>(x => new CashierRepository(ConnectionString));
@@ -46,7 +50,8 @@ namespace DatabaseAPI
             services.AddScoped<IDiscountRepository>(x => new DiscountRepository(ConnectionString));
             services.AddScoped<IOrderDiscountRepository>(x => new OrderDiscountRepository(ConnectionString));
             services.AddScoped<IPairRepository<DatabaseModels.OrderItems>>(x => new PairRepository<DatabaseModels.OrderItems>(ConnectionString, "order_items", DatabaseModels.OrderItems.ColumnNames));
-            
+
+            services.AddScoped<IDiscountCrudServices, DiscountCrudServices>();
             services.AddScoped<IOrderServices, OrderServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IDiscountServices, DiscountServices>();
