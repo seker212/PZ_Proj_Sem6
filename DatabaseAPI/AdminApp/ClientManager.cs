@@ -66,7 +66,7 @@ namespace AdminApp
             var request = new RestRequest("api/User/login/admin");
             request.AddParameter("username", name);
             request.AddParameter("password", password);
-            request.RequestFormat = DataFormat.Json;
+            //request.RequestFormat = DataFormat.Json;
             var response = client.Get(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -78,6 +78,13 @@ namespace AdminApp
             {
                 return false;
             }
+        }
+
+        public void test()
+        {
+            var request = new RestRequest("api/Product/available", DataFormat.Json);
+            var response = client.Get(request);
+            //var products = JsonConvert.DeserializeObject<List<ProductData>>(response.Content);
         }
     }
 }
