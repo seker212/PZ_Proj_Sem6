@@ -505,6 +505,7 @@ namespace AdminApp
         public bool UpdateOrder(Guid guid, Guid cashierId, int status, double price, int ticketNumber)
         {
             var order = GetOrder(guid);
+            order.CashierId = cashierId;
             if(status != -1)
             {
                 order.Status = status;
@@ -551,6 +552,140 @@ namespace AdminApp
             };
             string jsonBody = JsonConvert.SerializeObject(order);
             var request = new RestRequest("api/crud/Orders");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Delete(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool AddOrderDiscount(Guid orderId, Guid discountId, int quantity)
+        {
+            var orderDiscount = new OrderDiscount()
+            {
+                OrderId = orderId,
+                DiscountId = discountId,
+                Quantity = quantity
+            };
+            var request = new RestRequest("api/crud/OrderDiscount");
+            string jsonBody = JsonConvert.SerializeObject(orderDiscount);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Post(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public OrderDiscount GetOrderDiscount(Guid orderId, Guid discountId)
+        {
+            var request = new RestRequest("api/crud/OrderDiscount/instance");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("orderId", orderId);
+            request.AddParameter("discountId", discountId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var orderDiscount = JsonConvert.DeserializeObject<OrderDiscount>(response.Content);
+                return orderDiscount;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public IEnumerable<OrderDiscount> GetOrderDiscounts()
+        {
+            var request = new RestRequest("api/crud/OrderDiscount");
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var ordersDiscount = JsonConvert.DeserializeObject<List<OrderDiscount>>(response.Content);
+                return ordersDiscount;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public bool UpdateOrderDiscount(Guid orderId, Guid discountId, int quantity)
+        {
+            var orderDiscount = GetOrderDiscount(orderId, discountId);
+            orderDiscount.OrderId = orderId;
+            orderDiscount.DiscountId = discountId;
+            if (quantity != -1)
+            {
+                orderDiscount.Quantity = quantity;
+            }
+            var request = new RestRequest("api/crud/OrderDiscount");
+            string jsonBody = JsonConvert.SerializeObject(orderDiscount);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Put(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool DeleteOrderDiscount(Guid orderId)
+        {
+            var orderDiscount = new OrderDiscount()
+            {
+                OrderId = orderId,
+                DiscountId = Guid.NewGuid(),
+                Quantity = 1
+            };
+            string jsonBody = JsonConvert.SerializeObject(orderDiscount);
+            var request = new RestRequest("api/crud/OrderDiscount");
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
             var response = Client.Delete(request);
