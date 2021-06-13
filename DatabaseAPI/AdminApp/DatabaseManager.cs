@@ -93,16 +93,12 @@ namespace AdminApp
             }
         }
 
-        public bool UpdateCashier(Guid guid, string name, double bilans)
+        public bool UpdateCashier(Guid guid, string name, double? bilans)
         {
             var cashier = GetCashier(guid);
             if(name != "")
             {
                 cashier.FullName = name;
-            }
-            if(bilans != -1.0)
-            {
-                cashier.Bilans = bilans;
             }
             var request = new RestRequest("api/crud/Cashier");
             string jsonBody = JsonConvert.SerializeObject(cashier);
@@ -229,21 +225,9 @@ namespace AdminApp
             }
         }
 
-        public bool UpdateDiscount(Guid guid, bool isAvailable, double setPrice, double priceDropAmount, double priceDropPercent)
+        public bool UpdateDiscount(Guid guid, bool isAvailable, double? setPrice, double? priceDropAmount, double? priceDropPercent)
         {
             var discount = GetDiscount(guid);
-            if(discount.SetPrice != -1.0)
-            {
-                discount.SetPrice = setPrice;
-            }
-            if (discount.PriceDropAmount != -1.0)
-            {
-                discount.PriceDropAmount = priceDropAmount;
-            }
-            if(discount.PriceDropPercent != -1.0)
-            {
-                discount.PriceDropPercent = priceDropPercent;
-            }
             var request = new RestRequest("api/crud/Discount");
             string jsonBody = JsonConvert.SerializeObject(discount);
             request.AddHeader("sessionId", SessionId);
@@ -371,12 +355,11 @@ namespace AdminApp
             }
         }
 
-        /*
         public bool UpdateDiscountSetItem(Guid discountId, Guid productId, int quantity)
         {
-            var discountSetItem = GetDiscountSetItem()
+            var discountSetItem = GetDiscountSetItem(discountId);
             var request = new RestRequest("api/crud/Discount");
-            string jsonBody = JsonConvert.SerializeObject(discount);
+            string jsonBody = JsonConvert.SerializeObject(discountSetItem);
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
             var response = Client.Put(request);
@@ -395,8 +378,7 @@ namespace AdminApp
                 return false;
             }
         }
-        */
-
+        
         public bool DeleteDiscountSetItem(Guid discountId, Guid productId)
         {
             var discountSetItem = new DiscountSetItem()
