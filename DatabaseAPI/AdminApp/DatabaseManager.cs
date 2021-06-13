@@ -309,12 +309,12 @@ namespace AdminApp
             }
         }
 
-        public DiscountSetItem GetDiscountSetItem(Guid guid)
+        public DiscountSetItem GetDiscountSetItem(Guid discountId, Guid productId)
         {
-            //TODO: Repair guid in route
-            var request = new RestRequest("api/crud/DiscountSetItem/{guid}").AddUrlSegment("guid", guid);
+            var request = new RestRequest("api/crud/DiscountSetItem/instance");
             request.AddHeader("sessionId", SessionId);
-            //request.AddParameter()
+            request.AddParameter("discountId", discountId);
+            request.AddParameter("productId", productId);
             var response = Client.Get(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
@@ -357,8 +357,8 @@ namespace AdminApp
 
         public bool UpdateDiscountSetItem(Guid discountId, Guid productId, int quantity)
         {
-            var discountSetItem = GetDiscountSetItem(discountId);
-            var request = new RestRequest("api/crud/Discount");
+            var discountSetItem = GetDiscountSetItem(discountId, productId);
+            var request = new RestRequest("api/crud/DiscountSetItem");
             string jsonBody = JsonConvert.SerializeObject(discountSetItem);
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
