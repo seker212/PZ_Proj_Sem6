@@ -140,9 +140,28 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 #Preparing query to create a database
-sql = '''SELECT * FROM orders; '''
-sql0 = '''CREATE database mydatabase;'''
+sql1 = '''SELECT * FROM orders; '''
+sql2 = '''SELECT * FROM order_items; '''
+sql3 = '''SELECT * FROM order_discount; '''
+sql4 = '''SELECT * FROM discounts_set_items; '''
+sqlDelete = '''
+DELETE FROM order_items WHERE order_id = '4e742ab7-eac8-4f5b-a6cb-c8418a96875c';
+DELETE FROM order_discount WHERE order_id = '4e742ab7-eac8-4f5b-a6cb-c8418a96875c';
+DELETE FROM orders WHERE Id = '4e742ab7-eac8-4f5b-a6cb-c8418a96875c';
+'''
 
+sqlCreate = ''' CREATE DATABASE mydatabase '''
+sqlList = '''SELECT datname FROM pg_database;'''
+
+sqlnewInsert = '''
+INSERT INTO products VALUES
+    ('00000000-0000-0000-0000-000000000005', 'Frytki małe', 4.99, 'Available'),
+    ('00000000-0000-0000-0000-000000000006', 'Frytki duże', 7.99, 'Available');
+'''
+sqlInsertUser = '''
+INSERT INTO users VALUES
+    ('4bf46fb2-cc48-11eb-b8bc-0242ac130003', 'Admin2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Admin');
+'''
 #------------------------------------------------------
 #Creating a database
 #cursor.execute(sql0)
@@ -155,6 +174,25 @@ sql0 = '''CREATE database mydatabase;'''
 rows = cursor.fetchall()
 for row in rows:
     print(row)
+
+print('\n'+sql2)
+cursor.execute(sql2)
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+print('\n'+sql3)
+cursor.execute(sql3)
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+print('\n'+sqlnewInsert)
+cursor.execute(sqlnewInsert)
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
 
 print("Database created successfully........")
 

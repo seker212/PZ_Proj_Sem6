@@ -26,6 +26,8 @@ namespace POSApp {
 
         double sum;
 
+        Guid cashierID;
+
         public Form1() {
             InitializeComponent();
 
@@ -70,10 +72,11 @@ namespace POSApp {
                         request.AddParameter("username", loginBox.Text);
                         request.AddParameter("cashierName", nameBox.Text);
                         request.AddParameter("password", passwordBox.Text);
-                        //var response = client.Get(request);
-                        //if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                        var response = client.Get(request);
+                        if (response.StatusCode == System.Net.HttpStatusCode.OK) {
+                            cashierID = new Guid(response.Content.Trim('"'));
                             return;
-                        //else dialogResult = login.ShowDialog();
+                        } else dialogResult = login.ShowDialog();
                     } else {
                         dialogResult = login.ShowDialog();
                     }
@@ -138,7 +141,7 @@ namespace POSApp {
                 }
             }
 
-            var order = new OrderPost(new Guid("00000000-0000-0000-0000-000000000007"), this.sum, orderProducts, discountOrder, DateTime.Now);
+            var order = new OrderPost(cashierID, this.sum, orderProducts, discountOrder, DateTime.Now);
             string jsonToSend = JsonConvert.SerializeObject(order);
             var request = new RestRequest("api/Orders/kitchen", Method.POST);
             request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
@@ -181,7 +184,7 @@ namespace POSApp {
                 this.PutOrder();
 
                 //string msg = String.Format("Zamówienie nr {0} zostało złożone", "12");
-                string msg = "Zamówienie nr zostało złożone";
+                string msg = "Zamówienie zostało złożone";
                 DialogResult confirmationresult = MessageBox.Show(msg, "Zapłać", MessageBoxButtons.OK);
                 ClearAll();
             }
