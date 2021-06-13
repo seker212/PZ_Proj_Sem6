@@ -14,6 +14,15 @@ namespace DatabaseAPI.DatabaseModels
     public class User : IDbModel
     {
         private static readonly string[] _staticColumnNames = new string[] { "id", "username", "password_hash", "user_type" };
+
+        public User(Guid id, string username, string passwordHash, UserType type)
+        {
+            Id = id;
+            Username = username;
+            PasswordHash = passwordHash;
+            Type = type;
+        }
+
         public Guid Id { get; }
         public string Username { get; }
         public string PasswordHash { get; set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace DatabaseAPI.DAL
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepository<Product>
     {
         IEnumerable<Product> GetAvailableProducts();
         IEnumerable<(Guid id, string name, int quantity)> GetDiscountProducts(Discount discount);

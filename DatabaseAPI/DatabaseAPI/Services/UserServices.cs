@@ -57,6 +57,49 @@ namespace DatabaseAPI.Services
             });
         }
 
+        #region CRUD
+        public Task<DatabaseModels.User> PostUser(DatabaseModels.User user)
+        {
+            return Task.Run(() =>
+            {
+                return _userRepository.Insert(new DatabaseModels.User(Guid.NewGuid(), user.Username, ComputeSha256Hash(user.PasswordHash), user.Type));
+            });
+        }
+
+        public Task<bool> DeleteUser(Guid guid)
+        {
+            return Task.Run(() =>
+            {
+                return _userRepository.Delete(new DatabaseModels.User(guid, "a", "a", DatabaseModels.UserType.Admin));
+            });
+        }
+
+        public Task<DatabaseModels.User> UpdateUser(DatabaseModels.User user)
+        {
+            return Task.Run(() =>
+            {
+                return _userRepository.Update(user);
+            });
+        }
+
+        public Task<IEnumerable<DatabaseModels.User>> GetUsers()
+        {
+            return Task.Run(() => { return _userRepository.Get(); });
+        }
+
+        public Task<DatabaseModels.User?> GetUser(Guid id)
+        {
+            return Task.Run(() =>
+            {
+                var collection = _userRepository.Get().Where(x => x.Id == id);
+                if (collection.Count() == 1)
+                    return collection.Single();
+                else
+                    return null;
+            });
+        }
+        #endregion
+
         string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
