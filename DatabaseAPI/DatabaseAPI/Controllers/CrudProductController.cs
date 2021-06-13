@@ -23,11 +23,11 @@ namespace DatabaseAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> PostProduct([FromHeader] string sessionId, [FromBody] DatabaseModels.Product product)
+        public async Task<IActionResult> PostProduct([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Product product)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Create(product);
+                var result = await _services.Create(new DatabaseModels.Product(product.Id, product.Name, product.Price, product.Status));
                 return Ok(result);
             }
             else
@@ -74,11 +74,11 @@ namespace DatabaseAPI.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateProduct([FromHeader] string sessionId, [FromBody] DatabaseModels.Product product)
+        public async Task<IActionResult> UpdateProduct([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Product product)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Update(product);
+                var result = await _services.Update(new DatabaseModels.Product(product.Id, product.Name, product.Price, product.Status));
                 return Ok(result);
             }
             else
@@ -90,11 +90,11 @@ namespace DatabaseAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteProduct([FromHeader] string sessionId, [FromBody] DatabaseModels.Product product)
+        public async Task<IActionResult> DeleteProduct([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Product product)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Delete(product);
+                var result = await _services.Delete(new DatabaseModels.Product(product.Id, product.Name, product.Price, product.Status));
                 return Ok(result);
             }
             else

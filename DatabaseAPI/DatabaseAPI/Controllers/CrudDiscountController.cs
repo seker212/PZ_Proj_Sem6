@@ -22,11 +22,11 @@ namespace DatabaseAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> PostDiscount([FromHeader] string sessionId, [FromBody] DatabaseModels.Discount discount)
+        public async Task<IActionResult> PostDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Discount discount)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Create(discount);
+                var result = await _services.Create(new DatabaseModels.Discount(discount.Id, discount.IsAvailable, discount.SetPrice, discount.PriceDropAmmount, discount.PriceDropPercent));
                 return Ok(result);
             }
             else
@@ -73,11 +73,11 @@ namespace DatabaseAPI.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateDiscount([FromHeader] string sessionId, [FromBody] DatabaseModels.Discount discount)
+        public async Task<IActionResult> UpdateDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Discount discount)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Update(discount);
+                var result = await _services.Update(new DatabaseModels.Discount(discount.Id, discount.IsAvailable, discount.SetPrice, discount.PriceDropAmmount, discount.PriceDropPercent));
                 return Ok(result);
             }
             else
@@ -89,11 +89,11 @@ namespace DatabaseAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteDiscount([FromHeader] string sessionId, [FromBody] DatabaseModels.Discount discount)
+        public async Task<IActionResult> DeleteDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.Discount discount)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
-                var result = await _services.Delete(discount);
+                var result = await _services.Delete(new DatabaseModels.Discount(discount.Id, discount.IsAvailable, discount.SetPrice, discount.PriceDropAmmount, discount.PriceDropPercent));
                 return Ok(result);
             }
             else
