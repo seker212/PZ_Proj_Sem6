@@ -505,6 +505,7 @@ namespace AdminApp
         public bool UpdateOrder(Guid guid, Guid cashierId, int status, double price, int ticketNumber)
         {
             var order = GetOrder(guid);
+            order.CashierId = cashierId;
             if(status != -1)
             {
                 order.Status = status;
@@ -648,6 +649,8 @@ namespace AdminApp
         public bool UpdateOrderDiscount(Guid orderId, Guid discountId, int quantity)
         {
             var orderDiscount = GetOrderDiscount(orderId, discountId);
+            orderDiscount.OrderId = orderId;
+            orderDiscount.DiscountId = discountId;
             if (quantity != -1)
             {
                 orderDiscount.Quantity = quantity;
@@ -701,7 +704,5 @@ namespace AdminApp
                 return false;
             }
         }
-
-
     }
 }
