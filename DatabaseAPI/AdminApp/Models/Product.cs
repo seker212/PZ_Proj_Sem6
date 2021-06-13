@@ -16,6 +16,6 @@ namespace AdminApp.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public ProductStatus Status { get; set; }
+        public int Status { get; set; }
     }
 }

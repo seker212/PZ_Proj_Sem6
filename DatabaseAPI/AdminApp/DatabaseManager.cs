@@ -844,5 +844,146 @@ namespace AdminApp
                 return false;
             }
         }
+
+        public bool AddProduct(Guid id, string name, double price, int status)
+        {
+            var product = new Product()
+            {
+                Id = id,
+                Name = name,
+                Price = price,
+                Status = status
+            };
+            var request = new RestRequest("api/crud/Product");
+            string jsonBody = JsonConvert.SerializeObject(product);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Post(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public Product GetProduct(Guid guid)
+        {
+            var request = new RestRequest("api/crud/Product/{guid}").AddUrlSegment("guid", guid);
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var product = JsonConvert.DeserializeObject<Product>(response.Content);
+                return product;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public IEnumerable<Product> GetProducts()
+        {
+            var request = new RestRequest("api/crud/Product");
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var products = JsonConvert.DeserializeObject<List<Product>>(response.Content);
+                return products;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public bool UpdateOrderItem(Guid id, string name, double price, int status)
+        {
+            var product = GetProduct(id);
+            product.Id = id;
+            if(name != "")
+            {
+                product.Name = name;
+            }
+            if(price != -1.0)
+            {
+                product.Price = price;
+            }
+            if(status != -1)
+            {
+                product.Status = status;
+            }
+            var request = new RestRequest("api/crud/Product");
+            string jsonBody = JsonConvert.SerializeObject(product);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Put(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool DeleteProduct(Guid guid)
+        {
+            var product = new Product()
+            {
+                Id = guid,
+                Name = "",
+                Price = 1.0,
+                Status = 1
+            };
+            string jsonBody = JsonConvert.SerializeObject(product);
+            var request = new RestRequest("api/crud/Product");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Delete(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
     }
 }
