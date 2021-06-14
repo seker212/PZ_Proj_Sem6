@@ -70,6 +70,7 @@ namespace AdminApp
             {
                 Type = UserType.Admin;
                 SessionId = response.Content.Trim('"');
+                Console.WriteLine("\nZalogowano pomyślnie. Podaj komendę: ");
                 return true;
             }
             else
