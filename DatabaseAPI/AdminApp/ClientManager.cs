@@ -77,5 +77,22 @@ namespace AdminApp
                 return false;
             }
         }
+
+        public bool Logout()
+        {
+            var request = new RestRequest("api/User/logout");
+            request.AddParameter("sessionId", SessionId);
+            var response = Client.Delete(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                SessionId = "";
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
