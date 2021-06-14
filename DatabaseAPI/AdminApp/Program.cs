@@ -15,11 +15,6 @@ namespace AdminApp
     {
         static void Main(string[] args)
         {
-            //RestClient client = new RestClient("https://localhost:44328/");
-            //ClientManager cm = new ClientManager(client);
-            // cm.LoginAdmin();
-            //DatabaseManager dm = new DatabaseManager(client, cm.SessionId);
-
             App app = new App();
             app.CommandHandler();
         }

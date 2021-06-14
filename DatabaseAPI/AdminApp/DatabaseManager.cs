@@ -10,10 +10,10 @@ using AdminApp.Models;
 
 namespace AdminApp
 {
-    class DatabaseManager
+    public class DatabaseManager
     {
-        RestClient Client { get; set; }
-        string SessionId { get; set; }
+        public RestClient Client { get; set; }
+        public string SessionId { get; set; }
 
         public DatabaseManager(RestClient client, string sessionId)
         {
