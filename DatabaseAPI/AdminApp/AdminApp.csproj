@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
     <Compile Include="ClientManager.cs" />
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="EnumCaster.cs" />
