@@ -23,7 +23,7 @@ namespace DatabaseAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> PostDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
+        public async Task<IActionResult> PostUser([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
@@ -39,7 +39,7 @@ namespace DatabaseAPI.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetDiscount([FromHeader] string sessionId)
+        public async Task<IActionResult> GetUser([FromHeader] string sessionId)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
@@ -56,7 +56,7 @@ namespace DatabaseAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetDiscountById([FromRoute] Guid guid, [FromHeader] string sessionId)
+        public async Task<IActionResult> GetUserById([FromRoute] Guid guid, [FromHeader] string sessionId)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
@@ -74,7 +74,7 @@ namespace DatabaseAPI.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> UpdateDiscount([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
+        public async Task<IActionResult> UpdateUser([FromHeader] string sessionId, [FromBody] ApiModels.CRUD.User user)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
@@ -90,7 +90,7 @@ namespace DatabaseAPI.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteDiscount([FromHeader] string sessionId, [FromBody] Guid id)
+        public async Task<IActionResult> DeleteUser([FromHeader] string sessionId, [FromQuery] Guid id)
         {
             if (Startup.ActiveSessions.ContainsKey(sessionId) && Startup.ActiveSessions[sessionId].Type == DatabaseModels.UserType.Admin)
             {
