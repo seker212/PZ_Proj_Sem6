@@ -1098,17 +1098,9 @@ namespace AdminApp
         }
         public bool DeleteUser(Guid guid)
         {
-            var user = new User()
-            {
-                Id = guid,
-                Username = "",
-                PasswordHash = "",
-                Type = 1
-            };
-            string jsonBody = JsonConvert.SerializeObject(user);
-            var request = new RestRequest("api/crud/Product");
+            var request = new RestRequest("api/crud/User");
             request.AddHeader("sessionId", SessionId);
-            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            request.AddParameter("id", guid, ParameterType.RequestBody);
             var response = Client.Delete(request);
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
