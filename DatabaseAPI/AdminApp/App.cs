@@ -279,15 +279,15 @@ namespace AdminApp
                 else if (command == "Update discountsetitem")
                 {
                     Console.WriteLine("Podaj ID zniżki:");
-                    string input1 = Console.ReadLine();
-                    Guid discountId = new Guid(input1);
+                    string input = Console.ReadLine();
+                    Guid discountId = new Guid(input);
                     Console.WriteLine("Podaj ID produktu:");
                     string input1 = Console.ReadLine();
                     Guid productId = new Guid(input1);
                     Console.WriteLine("Podaj ilość:");
                     string input2 = Console.ReadLine();
-                    int status = Int32.parse(input2);
-                    bool result = Dm.UpdateDiscountSetItems(discountId, productId, quantity);
+                    int quantity = Int32.Parse(input2);
+                    bool result = Dm.UpdateDiscountSetItem(discountId, productId, quantity);
                     if (result == true)
                     {
                         Console.WriteLine("Aktualizacja zakończona powodzeniem");
@@ -296,12 +296,12 @@ namespace AdminApp
                 else if (command == "Delete discountsetitem")
                 {
                     Console.WriteLine("Podaj ID zniżki:");
-                    string input1 = Console.ReadLine();
-                    Guid discountId = new Guid(input1);
+                    string input = Console.ReadLine();
+                    Guid discountId = new Guid(input);
                     Console.WriteLine("Podaj ID produktu:");
                     string input1 = Console.ReadLine();
                     Guid productId = new Guid(input1);
-                    bool result = Dm.DeleteDiscountSetItems(discountId, productId);
+                    bool result = Dm.DeleteDiscountSetItem(discountId, productId);
                     if (result == true)
                     {
                         Console.WriteLine("Usuwanie zakończona powodzeniem");
@@ -316,7 +316,7 @@ namespace AdminApp
                     Guid cashierId = new Guid(input1);
                     Console.WriteLine("Podaj status zamówienia:");
                     string input2 = Console.ReadLine();
-                    int status = Int32.parse(input2);
+                    int status = Int32.Parse(input2);
                     Console.WriteLine("Podaj cenę:");
                     string priceConsole = Console.ReadLine();
                     double price = Convert.ToDouble(priceConsole);
@@ -335,7 +335,7 @@ namespace AdminApp
                     string input1 = Console.ReadLine();
                     Guid orderId = new Guid(input1);
                     var order = Dm.GetOrder(orderId);
-                    if (orderitem != null)
+                    if (order != null)
                     {
                         Console.WriteLine("Id: " + order.Id);
                         Console.WriteLine("CashierId: " + order.CashierId);
@@ -364,14 +364,14 @@ namespace AdminApp
                 else if (command == "Update order")
                 {
                     Console.WriteLine("Podaj ID zamówienia:");
-                    string input1 = Console.ReadLine();
-                    Guid guid = new Guid(input1);
+                    string input = Console.ReadLine();
+                    Guid guid = new Guid(input);
                     Console.WriteLine("Podaj ID kasjera:");
                     string input1 = Console.ReadLine();
                     Guid cashierId = new Guid(input1);
                     Console.WriteLine("Podaj status zamówienia:");
                     string input2 = Console.ReadLine();
-                    int status = Int32.parse(input2);
+                    int status = Int32.Parse(input2);
                     Console.WriteLine("Podaj cenę:");
                     string priceConsole = Console.ReadLine();
                     double price = Convert.ToDouble(priceConsole);
@@ -407,7 +407,7 @@ namespace AdminApp
                     Console.WriteLine("Podaj ilość:");
                     string quantityConsole = Console.ReadLine();
                     int quantity = Int32.Parse(quantityConsole);
-                    bool result = Dm.AddOrderItem(orderId, discountId, quantity);
+                    bool result = Dm.AddOrderDiscount(orderId, discountId, quantity);
                     if (result == true)
                     {
                         Console.WriteLine("Dodawanie zakończone powodzeniem");
@@ -422,7 +422,7 @@ namespace AdminApp
                     string input2 = Console.ReadLine();
                     Guid discountId = new Guid(input2);
                     var orderdiscount = Dm.GetOrderDiscount(orderId, discountId);
-                    if (orderitem != null)
+                    if (orderdiscount != null)
                     {
                         Console.WriteLine("OrderId: " + orderdiscount.OrderId);
                         Console.WriteLine("ProductId: " + orderdiscount.DiscountId);
@@ -432,7 +432,7 @@ namespace AdminApp
                 else if (command == "Get orderdiscounts")
                 {
                     var orderdiscounts = Dm.GetOrderDiscounts();
-                    if (orderitems != null)
+                    if (orderdiscounts != null)
                     {
                         foreach (var orderdiscount in orderdiscounts)
                         {
@@ -487,7 +487,7 @@ namespace AdminApp
                     int quantity = Int32.Parse(quantityConsole);
                     Console.WriteLine("Podaj cenę:");
                     string priceConsole = Console.ReadLine();
-                    double price = Convert.ToDouble(priceConsole)
+                    double price = Convert.ToDouble(priceConsole);
                     bool result = Dm.AddOrderItem(orderId, productId, quantity, price);
                     if (result == true)
                     {
@@ -538,7 +538,7 @@ namespace AdminApp
                     int quantity = Int32.Parse(quantityConsole);
                     Console.WriteLine("Podaj cenę:");
                     string priceConsole = Console.ReadLine();
-                    double price = Convert.ToDouble(priceConsole)
+                    double price = Convert.ToDouble(priceConsole);
                     bool result = Dm.UpdateOrderItem(orderId, productId, quantity, price);
                     if (result == true)
                     {
@@ -566,12 +566,12 @@ namespace AdminApp
                     string name = Console.ReadLine();
                     Console.WriteLine("Podaj cenę produktu:");
                     string priceConsole = Console.ReadLine();
-                    double price = Convert.ToDouble(priceConsole)
+                    double price = Convert.ToDouble(priceConsole);
 
                     Console.WriteLine("Podaj status produktu:");
                     string statusConsole = Console.ReadLine();
                     int status = Int32.Parse(statusConsole);
-                    bool result = Dm.AddProduct(name, price, type);
+                    bool result = Dm.AddProduct(name, price, status);
                     if (result == true)
                     {
                         Console.WriteLine("Dodawanie zakończone powodzeniem");
@@ -579,7 +579,7 @@ namespace AdminApp
                 }
                 else if (command == "Get product")
                 {
-                    Console.WriteLine("Podaj ID productu");
+                    Console.WriteLine("Podaj ID produktu");
                     string input = Console.ReadLine();
                     Guid id = new Guid(input);
                     var product = Dm.GetProduct(id);
@@ -614,7 +614,7 @@ namespace AdminApp
                     string name = Console.ReadLine();
                     Console.WriteLine("Podaj cenę produktu:");
                     string priceConsole = Console.ReadLine();
-                    double price = Convert.ToDouble(priceConsole)
+                    double price = Convert.ToDouble(priceConsole);
 
                     Console.WriteLine("Podaj status produktu:");
                     string statusConsole = Console.ReadLine();
@@ -722,6 +722,24 @@ namespace AdminApp
                     if (result == true)
                     {
                         Console.WriteLine("Usuwanie zakończona powodzeniem");
+                    }
+                }
+                else if (command == "Logout")
+                {
+                    Cm.Logout();
+                    Dm.SessionId = "";
+                    active = false;
+                    Console.WriteLine("Czy chcesz opuścić program? (y/n)");
+                    string input = Console.ReadLine();
+                    if(input == "n")
+                    {
+                        SignIn(ref active);
+                        Dm.SessionId = Cm.SessionId;
+                        active = true;
+                    }
+                    else
+                    {
+                        running = false;
                     }
                 }
             }
