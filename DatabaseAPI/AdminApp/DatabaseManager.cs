@@ -426,13 +426,13 @@ namespace AdminApp
             }
         }
 
-        public bool AddOrder(Guid cashierId, OrderStatus status, double price, int ticketNumber)
+        public bool AddOrder(Guid cashierId, int status, double price, int ticketNumber)
         {
             var order = new Order()
             {
                 Id = Guid.NewGuid(),
                 CashierId = cashierId,
-                Status = EnumCaster.OrderStatusToNumber(status),
+                Status = status,
                 CreatedAt = DateTime.Now,
                 Price = price,
                 TicketNumber = ticketNumber
