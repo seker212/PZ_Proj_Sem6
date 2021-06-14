@@ -919,7 +919,7 @@ namespace AdminApp
             }
         }
 
-        public bool UpdateOrderItem(Guid id, string name, double price, int status)
+        public bool UpdateProduct(Guid id, string name, double price, int status)
         {
             var product = GetProduct(id);
             product.Id = id;
@@ -966,6 +966,146 @@ namespace AdminApp
                 Status = 1
             };
             string jsonBody = JsonConvert.SerializeObject(product);
+            var request = new RestRequest("api/crud/Product");
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Delete(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public bool AddUser(string name, string password, int type)
+        {
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Username = name,
+                PasswordHash = password,
+                Type = type
+            };
+            var request = new RestRequest("api/crud/User");
+            string jsonBody = JsonConvert.SerializeObject(user);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Post(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+
+        public User GetUser(Guid guid)
+        {
+            var request = new RestRequest("api/crud/User/{guid}").AddUrlSegment("guid", guid);
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var user = JsonConvert.DeserializeObject<User>(response.Content);
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            var request = new RestRequest("api/crud/User");
+            request.AddHeader("sessionId", SessionId);
+            var response = Client.Get(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var users = JsonConvert.DeserializeObject<List<User>>(response.Content);
+                return users;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return null;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return null;
+            }
+        }
+
+        public bool UpdateUser(Guid id, string name, string password, int type)
+        {
+            var user = GetUser(id);
+            user.Id = id;
+            if (name != "")
+            {
+                user.Username = name;
+            }
+            if (password != "")
+            {
+                user.PasswordHash = password;
+            }
+            if (type != -1)
+            {
+                user.Type = type;
+            }
+            var request = new RestRequest("api/crud/User");
+            string jsonBody = JsonConvert.SerializeObject(user);
+            request.AddHeader("sessionId", SessionId);
+            request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
+            var response = Client.Put(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Console.WriteLine("Brak uprawnień");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Błędne parametry");
+                return false;
+            }
+        }
+        public bool DeleteUser(Guid guid)
+        {
+            var user = new User()
+            {
+                Id = guid,
+                Username = "",
+                PasswordHash = "",
+                Type = 1
+            };
+            string jsonBody = JsonConvert.SerializeObject(user);
             var request = new RestRequest("api/crud/Product");
             request.AddHeader("sessionId", SessionId);
             request.AddParameter("application/json; charset=utf-8", jsonBody, ParameterType.RequestBody);
