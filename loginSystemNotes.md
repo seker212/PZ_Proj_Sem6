@@ -1,0 +1,1 @@
+ - At login asign each cashier a range of ticket numbers usable on disconnect
